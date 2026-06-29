@@ -4,11 +4,69 @@
 This is the official repository for WRover Software Simulation.
 
 ## Tools and Lanugages
-Currently using Rosviz with Gazebo for simulation
+- Rosviz
+- Gazebo for simulation.
+  - ROS2GZ bridge
+  - Xacro udrf
+- Custom VSCode build scripts
 
 ## Pushing and Pulling (TODO: David)
 All development work to be done on the dev branch of the repository. 
 Code which is free of syntax errors and basic bugs will be moved to test (via PR) for further testing and analysis
 Once either software lead (Aditya or David) approves the changes it will be merged to main.
 Merges to main will only be done after code has been thoroughly tested and works in a reliable manner.
+
+## Notes
+Documentation about the software being used, resources for development, things that need to be done, can all be found in [/docs/](./docs/)
+
+
+# Simulation Setup
+starting from the root of the WiscRobo directory (where this readme is).
+- NOTE: for development purposes, it is recommended to use VScode seeing as there are custom build commands and compile tasks in VSCode
+- WSL has varying support for different graphics card. If there is trouble running the software, please refer to [/docs/graphics.md](./docs/graphics.md) and contribute to such file.
+
+### Prereqs
+These are required to be installed on the system in order for the simulation to work.
+```
+sudo apt install python3-colcon-common-extensions
+sudo apt-get install python3-rosdep2
+sudo apt install ros-humble-joint-state-publisher-gui
+```
+
+### Raw Build and Run Commands
+
+```
+# Install package dependencies
+source /opt/ros/humble/setup.sh
+sudo apt-get update
+rosdep install --from-path src
+
+# Build projcet
+colcon build
+
+# Run Sim
+source install/setup.sh
+ros2 launch simulation simulation.launch.py
+```
+
+### Shortcuts
+``` bash
+# For fast builds use fast_build script at the top level
+# This will do the entire build, source, and run routine for you
+# make sure to chmod the script
+./fast_build
+
+# clean repo
+make clean
+
+# install ros dependencies
+make inst_dep
+
+# build project 
+make build_env
+
+# run after source
+make run
+```
+
 
