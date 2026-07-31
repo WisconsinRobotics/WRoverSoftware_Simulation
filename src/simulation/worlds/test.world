@@ -32,7 +32,34 @@
             <direction>-0.5 0.1 -0.9</direction>
         </light>
 
-        <model name="ground_plane">
+        <model name="terrain">
+    <static>true</static>
+
+    <link name="terrain_link">
+
+        <!-- Collision (physics) -->
+        <collision name="terrain_collision">
+            <geometry>
+                <heightmap>
+                    <uri>file://resource/terrain/terrain.png</uri>
+                    <size>4000 4000 200</size>
+                    <pos>0 0 0</pos>
+                </heightmap>
+            </geometry>
+        </collision>
+
+        <!-- Visual (what you see) -->
+        <visual name="terrain_visual">
+            <geometry>
+                <heightmap>
+                    <uri>file://resource/terrain/terrain.png</uri>
+                    <size>4000 4000 200</size>
+                </heightmap>
+            </geometry>
+        </visual>
+
+    </link>
+</model>
             <static>true</static>
             <link name="link">
                 <collision name="collision">
