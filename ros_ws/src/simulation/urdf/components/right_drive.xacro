@@ -89,8 +89,8 @@
             <child link="back_swivel"/>
             <origin xyz="${bs_pos_x} ${bs_pos_y} ${bs_pos_z}" rpy="0 0 0"/>
             <axis xyz = "0 0 1"/>
-        </joint>  
-        
+        </joint>
+
 
 
 
@@ -131,7 +131,7 @@
             <child link="front_swivel"/>
             <origin xyz="${fs_pos_x} ${fs_pos_y} ${fs_pos_z}" rpy="0 0 0"/>
             <axis xyz = "0 0 1"/>
-        </joint>  
+        </joint>
 
         <!-- =====================-->
         <!--     FRONT WHEEL      -->
@@ -166,8 +166,8 @@
             <collision name = "rd_front_wheel_collision">
                 <origin xyz="0 0 0" rpy = "-1.5707 0 0"/>
                 <geometry>
-                    <cylinder 
-                        radius = "${wheel_col_radius}" 
+                    <cylinder
+                        radius = "${wheel_col_radius}"
                         length = "${wheel_col_len}"
                     />
                 </geometry>
@@ -217,8 +217,8 @@
             <collision name = "rd_back_wheel_collision">
                 <origin xyz="0 0 0" rpy = "-1.5707 0 0"/>
                 <geometry>
-                    <cylinder 
-                        radius = "${wheel_col_radius}" 
+                    <cylinder
+                        radius = "${wheel_col_radius}"
                         length = "${wheel_col_len}"
                     />
                 </geometry>
