@@ -87,11 +87,9 @@ make clean
 # install ros dependencies
 make inst_dep
 
-# build project 
+# build project
 make build_env
 
 # run after source
 make run
 ```
-
-
