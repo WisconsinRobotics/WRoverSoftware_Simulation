@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<!--
+NOTES:
+the inertial values need to be added and tuned on this thing.
+This is not accurate to real life in the slightest because the inertia quaternions are not filled out...
+On the note of inertial reference frames, we need to figure out how those will work with componenets adding onto each other...
+-->
+
+
+<robot name = "test_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- General Definitions -->
+    <xacro:include filename="$(find test_rover)/urdf/test_rover/components/leg.xacro"/>
+    <xacro:include filename="$(find test_rover)/urdf/util/materials.xacro"/>
+
+    <!-- BODY Definition -->
+    <xacro:property name="body_size_x" value = "1.0"/>
+    <xacro:property name="body_size_y" value = "0.7"/>
+    <xacro:property name="body_size_z" value = "0.05"/>
+
+    <xacro:property name="electrical_box_size_x" value = "0.5"/>
+    <xacro:property name="electrical_box_size_y" value = "0.7"/>
+    <xacro:property name="electrical_box_size_z" value = "0.2"/>
+
+    <xacro:property name="antenna_radius" value = "0.025"/>
+    <xacro:property name="antenna_length" value = "0.7"/>
+
+    <link name = "base_link"/>
+
+    <link name = "body">
+        <!-- Body Base -->
+        <visual>
+            <geometry><box size="${body_size_x} ${body_size_y} ${body_size_z}"/></geometry>
+            <xacro:material_gray/>
+        </visual>
+        <collision>
+            <geometry><box size="${body_size_x} ${body_size_y} ${body_size_z}"/></geometry>
+        </collision>
+        <!-- Electronics Box -->
+        <visual>
+            <geometry><box size="${electrical_box_size_x} ${electrical_box_size_y} ${electrical_box_size_z}"/></geometry>
+            <origin xyz = "${-electrical_box_size_x/2} ${0} ${electrical_box_size_z/2}"/>
+        </visual>
+        <collision>
+            <geometry><box size="${electrical_box_size_x} ${electrical_box_size_y} ${electrical_box_size_z}"/></geometry>
+            <origin xyz = "${-electrical_box_size_x/2} ${0} ${electrical_box_size_z/2}"/>
+        </collision>
+        <!-- Electronics Box -->
+        <visual>
+            <geometry><cylinder radius = "${antenna_radius}" length = "${antenna_length}"/></geometry>
+            <origin xyz = "${-body_size_x/2} ${-body_size_y/2} ${antenna_length/2}"/>
+            <xacro:material_gray/>
+        </visual>
+        <collision>
+            <geometry><cylinder radius = "${antenna_radius}" length = "${antenna_length}"/></geometry>
+            <origin xyz = "${-body_size_x/2} ${-body_size_y/2} ${antenna_length/2}"/>
+        </collision>
+        <!-- ## ADD INERTIA TAG HERE ## -->
+    </link>
+
+    <!-- Legs -->
+    <xacro:make_leg
+        prefix = "FR"
+        x_offset = "${body_size_x/2}"
+        y_offset = "${body_size_y/2}"
+        z_offset = "${body_size_z/2}"/>
+
+    <xacro:make_leg
+        prefix = "FL"
+        x_offset = "${body_size_x/2}"
+        y_offset = "${-body_size_y/2}"
+        z_offset = "${body_size_z/2}"/>
+
+    <xacro:make_leg
+        prefix = "BR"
+        x_offset = "${-body_size_x/2}"
+        y_offset = "${body_size_y/2}"
+        z_offset = "${body_size_z/2}"/>
+
+    <xacro:make_leg
+        prefix = "BL"
+        x_offset = "${-body_size_x/2}"
+        y_offset = "${-body_size_y/2}"
+        z_offset = "${body_size_z/2}"/>
+
+    <!-- JOINTS -->
+    <joint name="base_to_body" type="fixed">
+        <parent link="base_link"/>     <!-- must be a link already in the tree -->
+        <child link="body"/>       <!-- must match the link name above exactly -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+</robot>

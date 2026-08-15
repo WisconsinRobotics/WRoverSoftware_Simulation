@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+
+<!--
+NOTE THIS MODEL IS BROKEN RIGHT NOW
+This needs to get fixed eventually...
+-->
+
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rover">
     <!-- IMPORTS -->
     <xacro:include filename="$(find simulation)/urdf/components/main_body.xacro"/>
