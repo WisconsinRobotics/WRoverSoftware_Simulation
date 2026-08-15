@@ -1,6 +1,5 @@
 # © Siemens AG, 2024
 # Author: Mehmet Emre Cakal (emre.cakal@siemens.com)
-
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,19 +10,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# ---
+# Last Editor: Christopher Teggatz
+# This is responsible for publishing the test_rover
+
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
+import xacro
+import os
 
 def generate_launch_description():
-    # Define launch arguments
+
+
+    ####  Define launch arguments ####
     port_arg = DeclareLaunchArgument('port', default_value='9090',
                                         description='Port number for ROS communication')
 
-    urdf_file_arg = DeclareLaunchArgument('urdf_file', default_value='custom_r2d2.urdf',
+    urdf_file_arg = DeclareLaunchArgument('urdf_file', default_value='test_rover/test_rover.urdf.xacro',
                                         description='URDF file name')
 
     allow_save_arg = DeclareLaunchArgument('allow_save', default_value='false',
@@ -32,7 +39,8 @@ def generate_launch_description():
     allow_overwrite_arg = DeclareLaunchArgument('allow_overwrite', default_value='false',
                                         description='Allow overwrite of existing files (default: false)')
 
-    # Define paths
+    #### DEFINE PATHS ####
+    # This will run the ROS# communication server, start up the URDF publisher, and then
     pkg_file_server2 = get_package_share_directory('file_server2')
     rosbridge_server_launch_file = PathJoinSubstitution(
         [pkg_file_server2, 'launch', 'ros_sharp_communication.launch.py'])
@@ -41,11 +49,13 @@ def generate_launch_description():
     urdf_launch_launch_file = PathJoinSubstitution(
         [urdf_launch_path, 'launch', 'description.launch.py'])
 
+    simulation = get_package_share_directory('simulation')
     custom_urdf_file_path = PathJoinSubstitution([
-        pkg_file_server2,
+        simulation,
         "urdf",
         LaunchConfiguration('urdf_file')
     ])
+
 
     # Include ROS Sharp Communication launch file
     ros_sharp_communication_launch = IncludeLaunchDescription(
@@ -57,7 +67,7 @@ def generate_launch_description():
                 }.items()
         )
 
-    r2d2_launch = IncludeLaunchDescription(
+    rover_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([urdf_launch_launch_file]),
         launch_arguments={
             'urdf_package': 'urdf_tutorial',
@@ -76,6 +86,6 @@ def generate_launch_description():
         allow_save_arg,
         allow_overwrite_arg,
         ros_sharp_communication_launch,
-        r2d2_launch,
+        rover_launch,
         # joint_state_publisher_node
     ])
