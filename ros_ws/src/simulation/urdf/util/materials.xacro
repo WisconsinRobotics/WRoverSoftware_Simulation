@@ -57,4 +57,16 @@
             r = "0" g = "0.8" b = "0.8" a = "0.5"
         />
     </xacro:macro>
+
+    <xacro:macro name = "material_gray">
+        <material name = "grey">
+            <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+    </xacro:macro>
+
+    <xacro:macro name = "material_red">
+        <material name = "red">
+            <color rgba="1.0 0.0 0.0 1.0"/>
+        </material>
+    </xacro:macro>
 </robot>
