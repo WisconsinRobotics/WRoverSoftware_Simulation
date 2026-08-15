@@ -37,6 +37,6 @@ Take the exampple:
     <child link="back_swivel"/>
     <origin xyz="${bw_pos_x} ${bw_pos_y} ${bw_pos_z}" rpy="0 0 0"/>
     <axis xyz = "0 0 1"/>
-</joint>  
+</joint>
 ```
 In the case of URDF, the intertials of the child will be relative to the origin axis, the origin axis being based off the parent's frame of reference

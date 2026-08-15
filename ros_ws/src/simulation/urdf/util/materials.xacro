@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    
+
     <!--
     Macro that automatically makes a material for gazebo robot
-    
+
     @param material_name : the name of the material in urdf and RVIZ
     @param r : red value [0, 1.0]
     @param g : green value [0, 1.0]
@@ -21,7 +21,6 @@
 
     <!--
     Macro that automatically makes a material that works for both RVIZ and Gazebo robot
-    
     @param link_name : name of the link that the material is associated to in Gazebo
     @param material_name : the name of the material in urdf and RVIZ
     @param r : red value [0, 1.0]

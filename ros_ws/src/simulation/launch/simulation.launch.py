@@ -8,15 +8,15 @@ from pathlib import Path
 
 
 def generate_launch_description():
-   
+
     # Gazebo Resource folders look one directory above the package folder
     pkg = get_package_share_directory("simulation")
-    
+
     # Process xacro and write urdf to install dir
     xacro_file = os.path.join(pkg, "urdf", "rover.urdf.xacro")
     doc = xacro.process_file(xacro_file).toxml()
-    
-    
+
+
     return LaunchDescription([
         # Start Gazebo with the world
         ExecuteProcess(
@@ -26,7 +26,6 @@ def generate_launch_description():
             },
             output='screen'
         ),
-        
         # Spawn Robot and start ROS Bridge to transfer ros messages to gazebo messages after a delay
         TimerAction(
             period=3.0,
