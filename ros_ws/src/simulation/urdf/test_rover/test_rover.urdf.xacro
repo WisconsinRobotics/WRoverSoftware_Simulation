@@ -5,58 +5,93 @@ NOTES:
 the inertial values need to be added and tuned on this thing.
 This is not accurate to real life in the slightest because the inertia quaternions are not filled out...
 On the note of inertial reference frames, we need to figure out how those will work with componenets adding onto each other...
+
+Multiple links are being used even though the body is comprised of multiple shapes that are statically connected.
+The reason this is being done is because having all those shapes and collisions being fused together in one ridged
+body would require for some nasty parralell axis theorum problems in order to calculate inertia tensor for the link.
+The compute used for this small change is miniscule and I dont want to do the calculations -Chris Teggatz
 -->
 
 
 <robot name = "test_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- General Definitions -->
-    <xacro:include filename="$(find test_rover)/urdf/test_rover/components/leg.xacro"/>
-    <xacro:include filename="$(find test_rover)/urdf/util/materials.xacro"/>
+    <!-- ==== IMPORTS ==== -->
+    <xacro:include filename="$(find simulation)/urdf/test_rover/components/leg.xacro"/>
+    <xacro:include filename="$(find simulation)/urdf/util/materials.xacro"/>
+    <xacro:include filename="$(find simulation)/urdf/util/inertia_macros.xacro"/>
+
+    <!-- ====ROVER BODY ==== -->
 
     <!-- BODY Definition -->
     <xacro:property name="body_size_x" value = "1.0"/>
     <xacro:property name="body_size_y" value = "0.7"/>
     <xacro:property name="body_size_z" value = "0.05"/>
+    <xacro:property name="body_mass" value = "1"/>
 
     <xacro:property name="electrical_box_size_x" value = "0.5"/>
     <xacro:property name="electrical_box_size_y" value = "0.7"/>
     <xacro:property name="electrical_box_size_z" value = "0.2"/>
+    <xacro:property name="electrical_box_mass" value = "0.5"/>
 
     <xacro:property name="antenna_radius" value = "0.025"/>
     <xacro:property name="antenna_length" value = "0.7"/>
+    <xacro:property name="antenna_mass" value = "0.1"/>
+
 
     <link name = "base_link"/>
 
+    <!-- Body Base -->
     <link name = "body">
-        <!-- Body Base -->
         <visual>
             <geometry><box size="${body_size_x} ${body_size_y} ${body_size_z}"/></geometry>
-            <xacro:material_gray/>
         </visual>
         <collision>
             <geometry><box size="${body_size_x} ${body_size_y} ${body_size_z}"/></geometry>
         </collision>
-        <!-- Electronics Box -->
+        <inertial>
+            <mass value = "${body_mass}"/>
+            <xacro:intertia_rectangle
+            m= "${body_mass}"
+            w = "${body_size_x}"
+            h = "${body_size_y}"
+            d = "${body_size_z}"/>
+        </inertial>
+    </link>
+
+
+    <!-- Electronics Box -->
+    <link name = "body_electronic_box">
         <visual>
             <geometry><box size="${electrical_box_size_x} ${electrical_box_size_y} ${electrical_box_size_z}"/></geometry>
-            <origin xyz = "${-electrical_box_size_x/2} ${0} ${electrical_box_size_z/2}"/>
         </visual>
         <collision>
             <geometry><box size="${electrical_box_size_x} ${electrical_box_size_y} ${electrical_box_size_z}"/></geometry>
-            <origin xyz = "${-electrical_box_size_x/2} ${0} ${electrical_box_size_z/2}"/>
         </collision>
-        <!-- Electronics Box -->
+        <inertial>
+            <mass value = "${electrical_box_mass}"/>
+            <xacro:intertia_rectangle
+            m= "${electrical_box_mass}"
+            w = "${electrical_box_size_x}"
+            h = "${electrical_box_size_y}"
+            d = "${electrical_box_size_z}"/>
+        </inertial>
+    </link>
+
+    <!-- Antenna Box -->
+    <link name = "body_antenna">
         <visual>
             <geometry><cylinder radius = "${antenna_radius}" length = "${antenna_length}"/></geometry>
-            <origin xyz = "${-body_size_x/2} ${-body_size_y/2} ${antenna_length/2}"/>
-            <xacro:material_gray/>
         </visual>
         <collision>
             <geometry><cylinder radius = "${antenna_radius}" length = "${antenna_length}"/></geometry>
-            <origin xyz = "${-body_size_x/2} ${-body_size_y/2} ${antenna_length/2}"/>
         </collision>
-        <!-- ## ADD INERTIA TAG HERE ## -->
+        <inertial>
+            <mass value = "${antenna_mass}"/>
+            <xacro:intertia_cylinder
+            m= "${antenna_mass}"
+            r = "${antenna_radius}"
+            h = "${antenna_length}"/>
+        </inertial>
     </link>
 
     <!-- Legs -->
@@ -86,8 +121,20 @@ On the note of inertial reference frames, we need to figure out how those will w
 
     <!-- JOINTS -->
     <joint name="base_to_body" type="fixed">
-        <parent link="base_link"/>     <!-- must be a link already in the tree -->
-        <child link="body"/>       <!-- must match the link name above exactly -->
+        <parent link="base_link"/>
+        <child link="body"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="body_to_electrical_box" type="fixed">
+        <parent link="body"/>
+        <child link="body_electronic_box"/>
+        <origin xyz = "${-electrical_box_size_x/2} ${0} ${electrical_box_size_z/2}" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="body_to_antenna" type="fixed">
+        <parent link="body"/>
+        <child link="body_antenna"/>
+        <origin xyz = "${-body_size_x/2} ${-body_size_y/2} ${antenna_length/2}" rpy="0 0 0"/>
     </joint>
 </robot>

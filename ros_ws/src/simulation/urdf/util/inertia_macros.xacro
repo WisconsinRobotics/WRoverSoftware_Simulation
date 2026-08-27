@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!--
+Last Editor: Christopher Teggatz
+Description: a set of macros responsible for generating simple inertia matrices for
+robot simulations. These shouldn't be used in the main robot tho.
+
+Here is some sources about the stuff:
+https://www.youtube.com/watch?v=HxH7fAQjt70
+https://en.wikipedia.org/wiki/List_of_moments_of_inertia#List_of_3D_inertia_tensors
+-->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!--
+    Generates inertia tensor for basic uniform rectangle
+
+    @param m : mass of rectangle
+    @param h : height of rectangle
+    @param w : width of rectangle
+    @param d : depth of rectangle
+    -->
+    <xacro:macro name = "intertia_rectangle" params = "m h w d">
+        <inertia
+                ixx = "${ 1 / 12 * m * (h*h + d*d)}"
+                ixy = "0"
+                ixz = "0"
+                iyy = "${ 1 / 12 * m * (w*w + d*d)}"
+                iyz = "0"
+                izz = "${ 1 / 12 * m * (w*w + h*h)}"
+        />
+    </xacro:macro>
+
+    <!--
+    Generates inertia tensor for basic uniform cylinder
+
+    @param m : mass of cylinder
+    @param r : radius of cylinder
+    @param h : height of cylinder
+    -->
+    <xacro:macro name = "intertia_cylinder" params = "m r h">
+        <inertia
+                ixx = "${1/12*m*(3*r*r + h*h)}"
+                ixy = "0"
+                ixz = "0"
+                iyy = "${1/12*m*(3*r*r + h*h)}"
+                iyz = "0"
+                izz = "${1/2*m*r*r}"
+        />
+    </xacro:macro>
+
+
+
+
+
+
+
+</robot>
