@@ -10,7 +10,7 @@ import xacro
 
 
 def generate_launch_description():
-    pkg_share = get_package_share_directory('test_rover')
+    pkg_share = get_package_share_directory('simulation')
     default_urdf_path = os.path.join(pkg_share, 'urdf', 'test_rover','test_rover.urdf.xacro')
 
     # So right here what is like the point of doing this?

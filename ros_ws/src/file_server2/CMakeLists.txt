@@ -69,10 +69,10 @@ install(DIRECTORY
 )
 
 # Install urdf file
-install(DIRECTORY
-  urdf
-  DESTINATION share/${PROJECT_NAME}
-)
+#install(DIRECTORY
+#  urdf
+#  DESTINATION share/${PROJECT_NAME}
+#)
 
 # Install package.xml
 ament_package()
