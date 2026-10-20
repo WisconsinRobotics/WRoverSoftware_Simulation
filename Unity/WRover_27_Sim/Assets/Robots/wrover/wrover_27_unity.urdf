@@ -1,0 +1,1218 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="wrover_27_simple">
+    <!-- Cleaned for Unity by urdf_cleanup.py: rod chains removed (differential is done in RockerDifferential.cs), masses fixed, collisions added, fixed joints merged, renamed. -->
+    <link name="base_link">
+        <inertial>
+            <mass value="10.048" />
+            <origin xyz="4.4272449e-10 -0.000333677013 0.101110272" rpy="0 0 0" />
+            <inertia ixx="0.17777882" ixy="3.10602034e-09" ixz="4.53865209e-10" iyy="0.179653669" iyz="-0.000342073661" izz="0.287592211" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/CHASSIS.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <collision name="chassis_box">
+            <origin xyz="0 0 0.1016" rpy="0 0 0" />
+            <geometry>
+                <box size="0.413689835 0.413689835 0.203200088" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 -0.1397 0.01" rpy="0 0 3.14159" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_BRACKET__base_link_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_BRACKET__base_link_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="arm_carriage">
+        <inertial>
+            <mass value="0.258064" />
+            <origin xyz="0 -0.0127 0.0508" rpy="0 0 0" />
+            <inertia ixx="0.000235864" ixy="0" ixz="0" iyy="0.000359624" iyz="0" izz="0.000151509" />
+        </inertial>
+        <visual>
+            <origin xyz="-6.93889e-18 -0.0254 0.0508" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/VERTICAL_PLATE.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.980392_0.713725_0.003922_0.000000_0.000000">
+                <color rgba="0.980392 0.713726 0.00392157 1" />
+            </material>
+        </visual>
+        <collision name="vertical_plate_box">
+            <origin xyz="0 -0.0127 0.0508" rpy="0 -1.57079633 -1.57079633" />
+            <geometry>
+                <box size="0.101599864 0.0800001066 0.0254001091" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="arm_column">
+        <inertial>
+            <mass value="1.99528" />
+            <origin xyz="0.04 0.00257815 0.45" rpy="0 0 0" />
+            <inertia ixx="0.134977" ixy="0" ixz="0" iyy="0.136098" iyz="0" izz="0.00171222" />
+        </inertial>
+        <visual>
+            <origin xyz="0.04 0.02 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/VERTICAL_C_BEAM.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <collision name="vertical_c_beam_box">
+            <origin xyz="0.04 0.00257815 0.45" rpy="0 -1.57079633 -1.57079633" />
+            <geometry>
+                <box size="0.899999967 0.092302582 0.0421646266" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="arm_supinator">
+        <inertial>
+            <mass value="4.20898" />
+            <origin xyz="0 -0.150182 0" rpy="0 0 0" />
+            <inertia ixx="0.0355371" ixy="0" ixz="0" iyy="0.00458318" iyz="0" izz="0.0327642" />
+        </inertial>
+        <visual>
+            <origin xyz="-3.36565e-19 0 6.8023e-18" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SUPINATOR.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <collision name="supinator_box">
+            <origin xyz="0 -0.150182 0" rpy="1.57079633 0 1.57079633" />
+            <geometry>
+                <box size="0.301382944 0.102402466 0.0507995741" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="claw">
+        <inertial>
+            <mass value="0.111432" />
+            <origin xyz="0.0127 -0.03175 0" rpy="0 0 0" />
+            <inertia ixx="4.34344e-05" ixy="0" ixz="0" iyy="1.19819e-05" iyz="0" izz="4.34344e-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0.1373 0.5334 -3.46945e-18" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/CLAW.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.498039_0.498039_0.498039_0.000000_0.000000">
+                <color rgba="0.498039 0.498039 0.498039 1" />
+            </material>
+        </visual>
+        <collision name="claw_box">
+            <origin xyz="0.0127 -0.03175 0" rpy="3.14159265 0 1.57079633" />
+            <geometry>
+                <box size="0.0634999801 0.0253999878 0.0253999878" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="manipulator">
+        <inertial>
+            <mass value="0.532768" />
+            <origin xyz="-0.0073706 -0.125281 0.00519119" rpy="0 0 0" />
+            <inertia ixx="0.00223628109" ixy="-4.3262933e-05" ixz="0.000373558429" iyy="0.000850781" iyz="3.04705339e-05" izz="0.00250356891" />
+        </inertial>
+        <visual>
+            <origin xyz="5.58346e-18 0.3683 -7.20781e-19" rpy="0 0.613613 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/MANIPULATOR.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.972549_0.529412_0.003922_0.000000_0.000000">
+                <color rgba="0.972549 0.529412 0.00392157 1" />
+            </material>
+        </visual>
+        <collision name="manipulator_box">
+            <origin xyz="-0.0073706 -0.125281 0.00519119" rpy="-2.52849987 0.0270609909 1.53235551" />
+            <geometry>
+                <box size="0.209414709 0.135873507 0.0254009384" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="rocker_left">
+        <inertial>
+            <mass value="3.08663932" />
+            <origin xyz="0.0042731384 0.095248491 0.0828957723" rpy="0 0 0" />
+            <inertia ixx="0.0196353424" ixy="-0.00021492669" ixz="0.018994121" iyy="0.393486128" iyz="-0.00422880268" izz="0.381866219" />
+        </inertial>
+        <visual>
+            <origin xyz="-8.91558e-20 0 -1.7972e-18" rpy="0 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1_1__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/plate_back__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/rocker_tube__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_back__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_front__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Aligning_Block__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.980392_0.713725_0.003922_0.000000_0.000000">
+                <color rgba="0.980392 0.713726 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_MOUNT__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.972549_0.529412_0.003922_0.000000_0.000000">
+                <color rgba="0.972549 0.529412 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/DUST_COVER__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.768627_0.886275_0.952941_0.000000_0.000000">
+                <color rgba="0.768627 0.886275 0.952941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HOUSING__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/MOTOR_PLATE__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.231373_0.380392_0.705882_0.000000_0.000000">
+                <color rgba="0.231373 0.380392 0.705882 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ENCODER_HOUSING__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="-0.0483034109 -0.0120204994 -1.7972183" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SHAFT__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.615686_0.811765_0.929412_0.000000_0.000000">
+                <color rgba="0.615686 0.811765 0.929412 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453053 0.113244218 0.126286787" rpy="0.048303379 0.0120206275 1.3443717" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_MOTOR__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-5.84419547e-09 0.04645 -1.17807196e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/plate_front__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0156617632 0.0553653764 -0.00812411377" rpy="-1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0156617501 0.0553654236 0.00812384972" rpy="-1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243805059 0.0472424304 -0.0201218" rpy="-0.0809648114 0.29019033 3.12779561" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_front__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243805059 0.0472424304 -0.0201218" rpy="-0.0809648114 0.29019033 3.12779561" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_back__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243805059 0.0472424304 -0.0201218" rpy="-0.0809648114 0.29019033 3.12779561" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/rocker_tube__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_MOUNT__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.972549_0.529412_0.003922_0.000000_0.000000">
+                <color rgba="0.972549 0.529412 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/DUST_COVER__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.768627_0.886275_0.952941_0.000000_0.000000">
+                <color rgba="0.768627 0.886275 0.952941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HOUSING__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/MOTOR_PLATE__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.231373_0.380392_0.705882_0.000000_0.000000">
+                <color rgba="0.231373 0.380392 0.705882 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ENCODER_HOUSING__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SHAFT__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.615686_0.811765_0.929412_0.000000_0.000000">
+                <color rgba="0.615686 0.811765 0.929412 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283026 0.113246492 0.0847042917" rpy="0.0482986055 -0.0120301773 1.79752906" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_MOTOR__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-6.94203647e-09 0.0548 -1.39937456e-07" rpy="3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1_1__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-9.40231562e-09 0.0061 -1.89531735e-07" rpy="-1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-9.40231564e-09 0.0061 -1.89531735e-07" rpy="-1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_2__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0833154755 0.0698598811 0.00914355146" rpy="-1.58195419 0.0482954874 -0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0591909464 0.0642328694 0.00353070061" rpy="-1.58195419 0.0482954874 -0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0592497707 0.0642328694 -0.00234492244" rpy="-1.55963629 0.0482966812 0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_left_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0838113709 0.0698598811 0.000852700357" rpy="-1.55963629 0.0482966812 0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_left_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0156617574 -0.00056537641 0.00812399796" rpy="1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_left_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0960872378 0.0144716194 0.0097772795" rpy="1.55963112 0.0482954874 -0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_left_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0719627088 0.00884462773 0.00416442864" rpy="1.55963112 0.0482954874 -0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_left_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0720215473 0.00884462773 -0.00297836173" rpy="1.58194902 0.0482966812 0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_left_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0965831476 0.0144716194 0.000219261071" rpy="1.58194902 0.0482966812 0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_left_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0156617558 -0.00056542359 -0.00812396553" rpy="1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_left_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="rocker_right">
+        <inertial>
+            <mass value="3.08663932" />
+            <origin xyz="0.00427316292 0.0952480504 0.0828962665" rpy="0 0 0" />
+            <inertia ixx="0.0196353424" ixy="-0.000214929066" ixz="0.0189941187" iyy="0.393486173" iyz="-0.0042287461" izz="0.381866174" />
+        </inertial>
+        <visual>
+            <origin xyz="-8.91558e-20 0 -1.7972e-18" rpy="0 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1_1__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419523e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/plate_back__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419522e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/rocker_tube__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419521e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_back__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419519e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_front__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419518e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Aligning_Block__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.980392_0.713725_0.003922_0.000000_0.000000">
+                <color rgba="0.980392 0.713726 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_MOUNT__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.972549_0.529412_0.003922_0.000000_0.000000">
+                <color rgba="0.972549 0.529412 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/DUST_COVER__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.768627_0.886275_0.952941_0.000000_0.000000">
+                <color rgba="0.768627 0.886275 0.952941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HOUSING__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/MOTOR_PLATE__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.231373_0.380392_0.705882_0.000000_0.000000">
+                <color rgba="0.231373 0.380392 0.705882 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ENCODER_HOUSING__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SHAFT__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.615686_0.811765_0.929412_0.000000_0.000000">
+                <color rgba="0.615686 0.811765 0.929412 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.393453024 0.113243652 0.126287377" rpy="-0.0483046009 -0.012015334 -1.79721855" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_MOTOR__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="5.84419522e-09 0.04645 1.17807196e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/plate_front__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0156617491 0.0553654236 -0.0081238309" rpy="-1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0156617641 0.0553653764 0.00812413259" rpy="-1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243806249 0.0472425364 -0.0201215602" rpy="-0.0809703429 0.290190257 3.12779377" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_front__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243806249 0.0472425364 -0.0201215602" rpy="-0.0809703429 0.290190257 3.12779377" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/tpu_back__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="1.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="1 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.00243806249 0.0472425364 -0.0201215602" rpy="-0.0809703429 0.290190257 3.12779377" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/rocker_tube__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.901961_0.901961_0.901961_0.000000_0.000000">
+                <color rgba="0.901961 0.901961 0.901961 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ROCKER_MOUNT__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.972549_0.529412_0.003922_0.000000_0.000000">
+                <color rgba="0.972549 0.529412 0.00392157 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/DUST_COVER__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.768627_0.886275_0.952941_0.000000_0.000000">
+                <color rgba="0.768627 0.886275 0.952941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HOUSING__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/MOTOR_PLATE__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.231373_0.380392_0.705882_0.000000_0.000000">
+                <color rgba="0.231373 0.380392 0.705882 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/ENCODER_HOUSING__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="0.0482974139 -0.0120353423 1.79752881" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SHAFT__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.615686_0.811765_0.929412_0.000000_0.000000">
+                <color rgba="0.615686 0.811765 0.929412 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.404283056 0.113245937 0.0847048813" rpy="-0.0482974458 0.0120352142 -1.3440665" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_MOTOR__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.000000_0.000000_0.000000_0.000000_0.000000">
+                <color rgba="0 0 0 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="6.94203613e-09 0.0548 1.39937456e-07" rpy="-3.14159 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1_1__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-8.32419657e-09 0.0061 -1.67799023e-07" rpy="-1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_1__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-8.32419659e-09 0.0061 -1.67799023e-07" rpy="-1.57079 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Part_2__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.752941_0.752941_0.752941_0.000000_0.000000">
+                <color rgba="0.752941 0.752941 0.752941 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0833154577 0.0698598545 0.00914391117" rpy="-1.58194902 0.0482966812 -0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0591909301 0.0642328662 0.00353103048" rpy="-1.58194902 0.0482966812 -0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.059249787 0.0642328662 -0.00234459256" rpy="-1.55963112 0.0482954874 0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_right_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0838113888 0.0698598545 0.000853060059" rpy="-1.55963112 0.0482954874 0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw_1_4_20_x_2_25__rocker_right_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0156617568 -0.00056542359 0.00812398436" rpy="1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_right_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0960872346 0.0144715929 0.00977734561" rpy="1.55963629 0.0482966812 -0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_right_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.071962707 0.00884462458 0.00416446492" rpy="1.55963629 0.0482966812 -0.227162529" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_right_1.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0720215491 0.00884462458 -0.00297832545" rpy="1.58195419 0.0482954874 0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_right_2.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0.0965831509 0.0144715929 0.000219327179" rpy="1.58195419 0.0482954874 0.227162515" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Hex_thin_lock_nut_with_nylon_insert_1_4_20__rocker_right_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="-0.0156617565 -0.00056537641 -0.00812397913" rpy="1.57079531 0.0495675 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Socket_button_head_cap_screw__10_32_x_0_5__rocker_right_3.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.603922_0.647059_0.686275_0.000000_0.000000">
+                <color rgba="0.603922 0.647059 0.686275 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="steer_fl">
+        <inertial>
+            <mass value="0.62" />
+            <origin xyz="0.0417286 6.15397e-06 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00216462073" ixy="-1.14668636e-07" ixz="-2.44897281e-05" iyy="0.0029421617" iyz="-3.61164717e-09" izz="0.000844216564" />
+        </inertial>
+        <visual>
+            <origin xyz="-0.0127019 0.0126981 0" rpy="0 -0 0.000147476" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_ARM__steer_fl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="steer_fr">
+        <inertial>
+            <mass value="0.62" />
+            <origin xyz="0.00937733 -0.0406613 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.0029028964" ixy="0.000170260491" ixz="-5.50334727e-06" iyy="0.00220388604" iyz="2.38633603e-05" izz="0.000844216564" />
+        </inertial>
+        <visual>
+            <origin xyz="0.0095212 0.0152291 0" rpy="0 0 -1.34414" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_ARM__steer_fr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="steer_rl">
+        <inertial>
+            <mass value="0.62" />
+            <origin xyz="0.0417286 -6.15419e-06 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00216462073" ixy="1.14672523e-07" ixz="-2.44897281e-05" iyy="0.0029421617" iyz="3.61176962e-09" izz="0.000844216564" />
+        </inertial>
+        <visual>
+            <origin xyz="-0.0126981 0.0127019 0" rpy="0 0 -0.000147481" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_ARM__steer_rl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="steer_rr">
+        <inertial>
+            <mass value="0.62" />
+            <origin xyz="0.0417286 3.3308e-06 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00216462072" ixy="-6.20637893e-08" ixz="-2.44897283e-05" iyy="0.00294216172" iyz="-1.95478481e-09" izz="0.000844216564" />
+        </inertial>
+        <visual>
+            <origin xyz="-0.012701 0.012699 0" rpy="0 -0 7.98206e-05" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/SWERVE_ARM__steer_rr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.647059_0.647059_0.647059_0.000000_0.000000">
+                <color rgba="0.647059 0.647059 0.647059 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="wheel_fl">
+        <inertial>
+            <mass value="1.139692" />
+            <origin xyz="-1.97732011e-09 -0.0417325124 8.30151016e-11" rpy="0 0 0" />
+            <inertia ixx="0.00512296585" ixy="9.73165211e-11" ixz="2.92453816e-11" iyy="0.0081047895" iyz="-4.09858122e-12" izz="0.00512296575" />
+        </inertial>
+        <visual>
+            <origin xyz="4.59702e-17 -0.0428598 -4.33681e-17" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HubCap__wheel_fl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/RearTireRing__wheel_fl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Tread__wheel_fl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.301961_0.301961_0.301961_0.000000_0.000000">
+                <color rgba="0.301961 0.301961 0.301961 1" />
+            </material>
+        </visual>
+        <collision name="tread_cyl">
+            <origin xyz="0 -0.0428598 0" rpy="1.57079633 0 0" />
+            <geometry>
+                <cylinder radius="0.11" length="0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="wheel_fr">
+        <inertial>
+            <mass value="1.139692" />
+            <origin xyz="-1.97732004e-09 -0.0417325124 8.30150378e-11" rpy="0 0 0" />
+            <inertia ixx="0.00512296585" ixy="9.73165213e-11" ixz="2.92453811e-11" iyy="0.0081047895" iyz="-4.0985815e-12" izz="0.00512296575" />
+        </inertial>
+        <visual>
+            <origin xyz="4.59702e-17 -0.0428598 -4.33681e-17" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HubCap__wheel_fr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/RearTireRing__wheel_fr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Tread__wheel_fr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.301961_0.301961_0.301961_0.000000_0.000000">
+                <color rgba="0.301961 0.301961 0.301961 1" />
+            </material>
+        </visual>
+        <collision name="tread_2_cyl">
+            <origin xyz="0 -0.0428598 0" rpy="1.57079633 0 0" />
+            <geometry>
+                <cylinder radius="0.11" length="0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="wheel_rl">
+        <inertial>
+            <mass value="1.139692" />
+            <origin xyz="-1.97732004e-09 -0.0417325124 8.30150435e-11" rpy="0 0 0" />
+            <inertia ixx="0.00512296585" ixy="9.73165213e-11" ixz="2.92453807e-11" iyy="0.0081047895" iyz="-4.09858146e-12" izz="0.00512296575" />
+        </inertial>
+        <visual>
+            <origin xyz="4.59702e-17 -0.0428598 -4.33681e-17" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HubCap__wheel_rl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/RearTireRing__wheel_rl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Tread__wheel_rl_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.301961_0.301961_0.301961_0.000000_0.000000">
+                <color rgba="0.301961 0.301961 0.301961 1" />
+            </material>
+        </visual>
+        <collision name="tread_1_cyl">
+            <origin xyz="0 -0.0428598 0" rpy="1.57079633 0 0" />
+            <geometry>
+                <cylinder radius="0.11" length="0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="wheel_rr">
+        <inertial>
+            <mass value="1.139692" />
+            <origin xyz="-1.97732007e-09 -0.0417325124 8.30150378e-11" rpy="0 0 0" />
+            <inertia ixx="0.00512296585" ixy="9.73165212e-11" ixz="2.92453811e-11" iyy="0.0081047895" iyz="-4.09858147e-12" izz="0.00512296575" />
+        </inertial>
+        <visual>
+            <origin xyz="4.59702e-17 -0.0428598 -4.33681e-17" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/HubCap__wheel_rr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/RearTireRing__wheel_rr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.917647_0.917647_0.917647_0.000000_0.000000">
+                <color rgba="0.917647 0.917647 0.917647 1" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 -0.0428598 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/Tread__wheel_rr_0.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.301961_0.301961_0.301961_0.000000_0.000000">
+                <color rgba="0.301961 0.301961 0.301961 1" />
+            </material>
+        </visual>
+        <collision name="tread_3_cyl">
+            <origin xyz="0 -0.0428598 0" rpy="1.57079633 0 0" />
+            <geometry>
+                <cylinder radius="0.11" length="0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="wrist_differential">
+        <inertial>
+            <mass value="0.767303" />
+            <origin xyz="0.0254 -0.046478 0" rpy="0 0 0" />
+            <inertia ixx="0.00104636" ixy="0" ixz="0" iyy="0.000954931" iyz="0" izz="0.00122769" />
+        </inertial>
+        <visual>
+            <origin xyz="0.0254 0.28575 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="package://wrover_27_simple/meshes/DIFFERENTIAL.stl" scale="1 1 1" />
+            </geometry>
+            <material name="0.768627_0.886275_0.952941_0.000000_0.000000">
+                <color rgba="0.768627 0.886275 0.952941 1" />
+            </material>
+        </visual>
+        <collision name="differential_box">
+            <origin xyz="0.0254 -0.046478 0" rpy="3.14159265 0 1.57079633" />
+            <geometry>
+                <box size="0.101562683 0.094260823 0.0777769106" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="arm_lift_joint" type="prismatic">
+        <origin xyz="0.04 0 0.565857" rpy="0 0 0" />
+        <axis xyz="0 0 -1" />
+        <parent link="arm_column" />
+        <child link="arm_carriage" />
+        <limit effort="1" velocity="1" lower="-0.234143" upper="0.565857" />
+    </joint>
+    <joint name="arm_roll_joint" type="revolute">
+        <origin xyz="0 -0.0254 0.0508" rpy="0 -0.882937 0" />
+        <axis xyz="-0 1 -0" />
+        <parent link="arm_carriage" />
+        <child link="arm_supinator" />
+        <limit effort="1" velocity="1" lower="-0.687859" upper="2.45373" />
+    </joint>
+    <joint name="arm_slide_joint" type="prismatic">
+        <origin xyz="-0.0608362 -0.257645 -0.127" rpy="0 0 0" />
+        <axis xyz="-1 0 0" />
+        <parent link="base_link" />
+        <child link="arm_column" />
+        <limit effort="1" velocity="1" lower="-0.191481" upper="0.146009" />
+    </joint>
+    <joint name="claw_joint" type="prismatic">
+        <origin xyz="-0.0779131 -0.1651 0.054875" rpy="0 0.613613 0" />
+        <axis xyz="1 -0 -0" />
+        <parent link="manipulator" />
+        <child link="claw" />
+        <limit effort="1" velocity="1" lower="-0.042002" upper="0.084998" />
+    </joint>
+    <joint name="rocker_left_joint" type="continuous">
+        <origin xyz="0.2132 -0.06985 -0.0154" rpy="0 0 -1.5708" />
+        <axis xyz="0 -1 0" />
+        <parent link="base_link" />
+        <child link="rocker_left" />
+    </joint>
+    <joint name="rocker_right_joint" type="continuous">
+        <origin xyz="-0.213199815 -0.0698494343 -0.0154" rpy="0 0 1.57079" />
+        <axis xyz="0 -1 0" />
+        <parent link="base_link" />
+        <child link="rocker_right" />
+    </joint>
+    <joint name="steer_fl_joint" type="continuous">
+        <origin xyz="0.399186126 0.113334122 -0.017628819" rpy="-0.0497659232 0.000849345612 -1.57093631" />
+        <axis xyz="0 0 1" />
+        <parent link="rocker_left" />
+        <child link="steer_fl" />
+    </joint>
+    <joint name="steer_fr_joint" type="continuous">
+        <origin xyz="-0.398550153 0.113156058 0.0239542777" rpy="0.0120276724 -0.0483015324 2.91462464" />
+        <axis xyz="0 0 1" />
+        <parent link="rocker_right" />
+        <child link="steer_fr" />
+    </joint>
+    <joint name="steer_rl_joint" type="continuous">
+        <origin xyz="-0.398550182 0.113156081 0.0239536885" rpy="0.0497681738 0.000853808877 1.57094637" />
+        <axis xyz="0 0 1" />
+        <parent link="rocker_left" />
+        <child link="steer_rl" />
+    </joint>
+    <joint name="steer_rr_joint" type="continuous">
+        <origin xyz="0.399186156 0.113334111 -0.0176282288" rpy="-0.0497658658 0.00085802987 -1.57086863" />
+        <axis xyz="0 0 1" />
+        <parent link="rocker_right" />
+        <child link="steer_rr" />
+    </joint>
+    <joint name="wheel_fl_joint" type="continuous">
+        <origin xyz="-0.0381 -5.61884e-06 -0.1651" rpy="0 -1.53876 1.57094" />
+        <axis xyz="-0 -1 -0" />
+        <parent link="steer_fl" />
+        <child link="wheel_fl" />
+    </joint>
+    <joint name="wheel_fr_joint" type="continuous">
+        <origin xyz="-0.00856191 0.0371255 -0.1651" rpy="3.14159 -0.0457759 -2.91493" />
+        <axis xyz="-0 -1 -0" />
+        <parent link="steer_fr" />
+        <child link="wheel_fr" />
+    </joint>
+    <joint name="wheel_rl_joint" type="continuous">
+        <origin xyz="-0.0381 5.61904e-06 -0.1651" rpy="0 0.16509 1.57065" />
+        <axis xyz="-0 -1 -0" />
+        <parent link="steer_rl" />
+        <child link="wheel_rl" />
+    </joint>
+    <joint name="wheel_rr_joint" type="continuous">
+        <origin xyz="-0.0381 -3.04116e-06 -0.1651" rpy="-3.14159 -1.54988 -1.57072" />
+        <axis xyz="-0 -1 -0" />
+        <parent link="steer_rr" />
+        <child link="wheel_rr" />
+    </joint>
+    <joint name="wrist_pitch_joint" type="revolute">
+        <origin xyz="-0.0254 -0.28575 0" rpy="0.29818 0 0" />
+        <axis xyz="1 1.36592e-16 -0" />
+        <parent link="arm_supinator" />
+        <child link="wrist_differential" />
+        <limit effort="1" velocity="1" lower="-1.86898" upper="1.27262" />
+    </joint>
+    <joint name="wrist_roll_joint" type="revolute">
+        <origin xyz="0.0254 -0.08255 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="wrist_differential" />
+        <child link="manipulator" />
+        <limit effort="1" velocity="1" lower="-3.75521" upper="2.52798" />
+    </joint>
+</robot>
