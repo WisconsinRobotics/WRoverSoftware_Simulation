@@ -1,0 +1,40 @@
+{
+  "source": "engineering_campus_source.tif",
+  "source_crs": "EPSG:32616",
+  "source_pixel_size_m": [
+    1.0,
+    1.0
+  ],
+  "crop_pixels": {
+    "top": 24,
+    "bottom": 682,
+    "left": 19,
+    "right": 440,
+    "width": 422,
+    "height": 659
+  },
+  "despike_threshold_m": 3.0,
+  "despiked_pixels": 20,
+  "elevation_m": {
+    "min": 259.99,
+    "max": 282.96
+  },
+  "unity_import_raw": {
+    "depth": "Bit 16",
+    "resolution": 1025,
+    "byte_order": "Windows",
+    "flip_vertically": false,
+    "terrain_size": {
+      "x": 421.0,
+      "y": 22.97,
+      "z": 658.0
+    }
+  },
+  "terrain_origin": {
+    "crs": "EPSG:32616",
+    "easting_m": 303459.5,
+    "northing_m": 4771151.5,
+    "elevation_m": 259.99,
+    "axes": "+X = east, +Z = north, +Y = up"
+  }
+}
