@@ -40,3 +40,6 @@ Take the exampple:
 </joint>
 ```
 In the case of URDF, the intertials of the child will be relative to the origin axis, the origin axis being based off the parent's frame of reference
+
+### Unity camera work
+link to camera software setup video https://www.youtube.com/watch?v=04EpnVbMKpU

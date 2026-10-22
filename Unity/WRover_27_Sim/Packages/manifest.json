@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.siemens.ros-sharp": "https://github.com/siemens/ros-sharp.git?path=/com.siemens.ros-sharp",
+    "com.unity.cinemachine": "2.9.7",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.6",
