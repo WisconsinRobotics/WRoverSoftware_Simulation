@@ -1195,7 +1195,7 @@ ArticulationBody:
   m_GameObject: {fileID: 1523476693541456340}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 0.62
+  m_Mass: 1.00017118
   m_ParentAnchorPosition: {x: -0.11333415, y: -0.017628819, z: 0.39918613}
   m_ParentAnchorRotation: {x: -0.48722166, y: 0.5125283, z: -0.48758847, w: 0.5120425}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -1238,9 +1238,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: -0.00000615397, y: -0.0997857, z: 0.0417286}
-  m_InertiaTensor: {x: 0.0008437626, y: 0.0021650747, z: 0.0029421619}
-  m_InertiaRotation: {x: -0.49534458, y: 0.5046124, z: -0.49534324, w: 0.5046138}
+  m_CenterOfMass: {x: -6.15397e-06, y: -0.0997857, z: 0.0417286}
+  m_InertiaTensor: {x: 0.00136114022, y: 0.00349265384, z: 0.00474623443}
+  m_InertiaRotation: {x: 0.504650323, y: -0.495380449, z: -0.504575905, w: 0.495307398}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2139,7 +2139,7 @@ ArticulationBody:
   m_GameObject: {fileID: 2071938704692221851}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 10.048
+  m_Mass: 14.6904961
   m_ParentAnchorPosition: {x: 0, y: 0, z: 0}
   m_ParentAnchorRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -2182,9 +2182,9 @@ ArticulationBody:
   m_LinearDamping: 0.05
   m_AngularDamping: 0.05
   m_JointFriction: 0.05
-  m_CenterOfMass: {x: 0.00033367702, y: 0.10111027, z: 4.427245e-10}
-  m_InertiaTensor: {x: 0.1777792, y: 0.17965224, z: 0.2875933}
-  m_InertiaRotation: {x: -0.49920672, y: 0.5007921, z: 0.49920756, w: 0.5007912}
+  m_CenterOfMass: {x: 0.00043134419, y: 0.100966929, z: 5.72309836e-10}
+  m_InertiaTensor: {x: 0.259875467, y: 0.263416843, z: 0.420895072}
+  m_InertiaRotation: {x: 0.498974452, y: -0.501023451, z: 0.498973618, w: 0.501024276}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3601,7 +3601,7 @@ ArticulationBody:
   m_GameObject: {fileID: 3946429351788312518}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 3.0866394
+  m_Mass: 3.6869132
   m_ParentAnchorPosition: {x: 0.06984943, y: -0.0154, z: -0.21319981}
   m_ParentAnchorRotation: {x: 0, y: 0.707109, z: 0, w: 0.70710456}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -3644,9 +3644,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: -0.09524805, y: 0.08289627, z: 0.0042731627}
-  m_InertiaTensor: {x: 0.018642087, y: 0.38137853, z: 0.39496714}
-  m_InertiaRotation: {x: 0.017152581, y: 0.6968602, z: 0.019264823, w: 0.6969039}
+  m_CenterOfMass: {x: -0.0981781079, y: 0.0969015571, z: 0.00497337657}
+  m_InertiaTensor: {x: 0.0234686616, y: 0.477508612, z: 0.495442707}
+  m_InertiaRotation: {x: 0.122719165, y: -0.701818593, z: 0.0861896571, w: 0.69639214}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4010,7 +4010,7 @@ ArticulationBody:
   m_GameObject: {fileID: 4423004564349767207}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 0.62
+  m_Mass: 1.00017118
   m_ParentAnchorPosition: {x: -0.11315608, y: 0.02395369, z: -0.39855018}
   m_ParentAnchorRotation: {x: 0.5125325, y: -0.48722237, z: -0.5120395, w: 0.48758662}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -4053,9 +4053,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: 0.00000615419, y: -0.0997857, z: 0.0417286}
-  m_InertiaTensor: {x: 0.0008437626, y: 0.0021650747, z: 0.0029421619}
-  m_InertiaRotation: {x: -0.49534324, y: 0.50461376, z: -0.49534458, w: 0.50461245}
+  m_CenterOfMass: {x: 6.13364323e-06, y: -0.0997857, z: 0.0417286205}
+  m_InertiaTensor: {x: 0.00136114022, y: 0.00349265384, z: 0.00474623443}
+  m_InertiaRotation: {x: 0.504575903, y: -0.495307397, z: -0.504650324, w: 0.49538045}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4371,7 +4371,7 @@ ArticulationBody:
   m_GameObject: {fileID: 4785527581302559038}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 0.62
+  m_Mass: 1.00017118
   m_ParentAnchorPosition: {x: -0.1133341, y: -0.01762823, z: 0.39918607}
   m_ParentAnchorRotation: {x: -0.48720288, y: 0.51251304, z: -0.4876072, w: 0.5120578}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -4414,9 +4414,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: -0.0000033308, y: -0.0997857, z: 0.0417286}
-  m_InertiaTensor: {x: 0.0008437626, y: 0.0021650747, z: 0.0029421619}
-  m_InertiaRotation: {x: -0.4953443, y: 0.50461274, z: -0.4953436, w: 0.50461346}
+  m_CenterOfMass: {x: -3.3462634e-06, y: -0.0997857, z: 0.0417286157}
+  m_InertiaTensor: {x: 0.00136114022, y: 0.00349265384, z: 0.00474623444}
+  m_InertiaRotation: {x: 0.504633254, y: -0.495363694, z: -0.504592976, w: 0.495324155}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4657,7 +4657,7 @@ ArticulationBody:
   m_GameObject: {fileID: 4955475701252502096}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 0.62
+  m_Mass: 1.00017118
   m_ParentAnchorPosition: {x: -0.113156, y: 0.023954278, z: -0.39855003}
   m_ParentAnchorRotation: {x: 0.7046427, y: -0.70006233, z: -0.09739311, w: 0.062499568}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -4700,9 +4700,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: 0.0406613, y: -0.0997857, z: 0.00937733}
-  m_InertiaTensor: {x: 0.0008437625, y: 0.0021650747, z: 0.0029421616}
-  m_InertiaRotation: {x: 0.69619644, y: -0.70888793, z: -0.0014454126, w: -0.0014811507}
+  m_CenterOfMass: {x: 0.0406613248, y: -0.0997857, z: 0.00937731359}
+  m_InertiaTensor: {x: 0.00136114022, y: 0.00349265385, z: 0.00474623444}
+  m_InertiaRotation: {x: -0.696028411, y: 0.709052937, z: -0.0792190559, w: 0.0807014532}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4791,7 +4791,7 @@ ArticulationBody:
   m_GameObject: {fileID: 5402467910689206506}
   m_Enabled: 1
   serializedVersion: 5
-  m_Mass: 3.0866394
+  m_Mass: 3.6869132
   m_ParentAnchorPosition: {x: 0.06985, y: -0.0154, z: 0.2132}
   m_ParentAnchorRotation: {x: 0, y: 0.7071055, z: 0, w: -0.7071081}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -4834,9 +4834,9 @@ ArticulationBody:
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_JointFriction: 0
-  m_CenterOfMass: {x: -0.09524849, y: 0.08289577, z: 0.0042731385}
-  m_InertiaTensor: {x: 0.018642087, y: 0.38137853, z: 0.39496714}
-  m_InertiaRotation: {x: 0.01715255, y: 0.6968599, z: 0.019264841, w: 0.6969036}
+  m_CenterOfMass: {x: -0.0981786229, y: 0.0969010474, z: 0.00497335124}
+  m_InertiaTensor: {x: 0.0234686614, y: 0.477508612, z: 0.495442707}
+  m_InertiaRotation: {x: 0.122721012, y: -0.70181836, z: 0.0861915169, w: 0.696391819}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

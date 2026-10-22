@@ -50,24 +50,25 @@ UP = np.array([0.0, 0.0, 1.0])
 
 # Mass fixes. Keys are regexes matched against ORIGINAL link names.
 # value: (new mass in kg, reason). Inertia is scaled by new/old mass.
+# These parts have no material in Onshape, so the export writes density 1 kg/m^3.
+# Masses given in pounds by Carter Cittdino (2026-10-15).
+LB = 0.45359237  # kg per lb
 MASS_OVERRIDES = {
     r"^chassis$": (
-        10.0,
-        "Placeholder box modeled at 1 kg/m^3 (35 g). ESTIMATE for frame + "
-        "electronics + batteries; replace with the real value.",
+        32.187 * LB,
+        "Modeled at 1 kg/m^3 (35 g). 32.187 lb, as labeled in onshape.",
     ),
     r"^swerve_motor(_\d+)?$": (
-        0.50,
-        "Placeholder cylinder modeled at ~1 kg/m^3 (0.33 g). ESTIMATE for a "
-        "steering motor + gearbox; replace with the real value.",
+        1.764 * LB,
+        "Modeled at ~1 kg/m^3 (0.33 g). 1.764 lb, as labeled in onshape.",
     ),
     r"^swerve_arm(_\d+)?$": (
-        0.62,
-        "Modeled at 1 kg/m^3 (0.23 g). Rescaled to aluminium (x2700).",
+        2.205 * LB,
+        "Modeled at 1 kg/m^3 (0.23 g). 2.205 lb, as labeled in onshape.",
     ),
     r"^rocker_bracket(_\d+)?$": (
-        0.024,
-        "Modeled at 1 kg/m^3 (0.009 g). Rescaled to aluminium (x2700).",
+        0.1 * LB,
+        "Modeled at 1 kg/m^3 (0.009 g). 0.1 lb, this is an estimate.",
     ),
 }
 

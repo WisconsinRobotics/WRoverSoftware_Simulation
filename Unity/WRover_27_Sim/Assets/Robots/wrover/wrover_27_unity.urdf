@@ -3,9 +3,9 @@
     <!-- Cleaned for Unity by urdf_cleanup.py: rod chains removed (differential is done in RockerDifferential.cs), masses fixed, collisions added, fixed joints merged, renamed. -->
     <link name="base_link">
         <inertial>
-            <mass value="10.048" />
-            <origin xyz="4.4272449e-10 -0.000333677013 0.101110272" rpy="0 0 0" />
-            <inertia ixx="0.17777882" ixy="3.10602034e-09" ixz="4.53865209e-10" iyy="0.179653669" iyz="-0.000342073661" izz="0.287592211" />
+            <mass value="14.6904961" />
+            <origin xyz="5.72309836e-10 -0.00043134419 0.100966929" rpy="0 0 0" />
+            <inertia ixx="0.259875467" ixy="5.86945856e-09" ixz="8.56585655e-10" iyy="0.26341949" iyz="-0.000645600027" izz="0.420892425" />
         </inertial>
         <visual>
             <origin xyz="0 0 0.01" rpy="0 0 0" />
@@ -153,9 +153,9 @@
     </link>
     <link name="rocker_left">
         <inertial>
-            <mass value="3.08663932" />
-            <origin xyz="0.0042731384 0.095248491 0.0828957723" rpy="0 0 0" />
-            <inertia ixx="0.0196353424" ixy="-0.00021492669" ixz="0.018994121" iyy="0.393486128" iyz="-0.00422880268" izz="0.381866219" />
+            <mass value="3.6869132" />
+            <origin xyz="0.00497335124 0.0981786229 0.0969010474" rpy="0 0 0" />
+            <inertia ixx="0.0247104567" ixy="-0.000241055189" ixz="0.0237525785" iyy="0.49391041" iyz="-0.00500746736" izz="0.477799113" />
         </inertial>
         <visual>
             <origin xyz="-8.91558e-20 0 -1.7972e-18" rpy="0 0.0495675 0" />
@@ -511,9 +511,9 @@
     </link>
     <link name="rocker_right">
         <inertial>
-            <mass value="3.08663932" />
-            <origin xyz="0.00427316292 0.0952480504 0.0828962665" rpy="0 0 0" />
-            <inertia ixx="0.0196353424" ixy="-0.000214929066" ixz="0.0189941187" iyy="0.393486173" iyz="-0.0042287461" izz="0.381866174" />
+            <mass value="3.6869132" />
+            <origin xyz="0.00497337657 0.0981781079 0.0969015571" rpy="0 0 0" />
+            <inertia ixx="0.0247104567" ixy="-0.000241057757" ixz="0.0237525759" iyy="0.493910463" iyz="-0.00500738823" izz="0.47779906" />
         </inertial>
         <visual>
             <origin xyz="-8.91558e-20 0 -1.7972e-18" rpy="0 0.0495675 0" />
@@ -869,9 +869,9 @@
     </link>
     <link name="steer_fl">
         <inertial>
-            <mass value="0.62" />
+            <mass value="1.00017118" />
             <origin xyz="0.0417286 6.15397e-06 -0.0997857" rpy="0 0 0" />
-            <inertia ixx="0.00216462073" ixy="-1.14668636e-07" ixz="-2.44897281e-05" iyy="0.0029421617" iyz="-3.61164717e-09" izz="0.000844216564" />
+            <inertia ixx="0.00349192139" ixy="-1.84981072e-07" ixz="-3.95063228e-05" iyy="0.0047462344" iyz="-5.82623451e-09" izz="0.0013618727" />
         </inertial>
         <visual>
             <origin xyz="-0.0127019 0.0126981 0" rpy="0 -0 0.000147476" />
@@ -885,9 +885,9 @@
     </link>
     <link name="steer_fr">
         <inertial>
-            <mass value="0.62" />
-            <origin xyz="0.00937733 -0.0406613 -0.0997857" rpy="0 0 0" />
-            <inertia ixx="0.0029028964" ixy="0.000170260491" ixz="-5.50334727e-06" iyy="0.00220388604" iyz="2.38633603e-05" izz="0.000844216564" />
+            <mass value="1.00017118" />
+            <origin xyz="0.00937731359 -0.0406613248 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00468289243" ixy="0.000274660702" ixz="-8.87788598e-06" iyy="0.00355526338" iyz="3.84958793e-05" izz="0.0013618727" />
         </inertial>
         <visual>
             <origin xyz="0.0095212 0.0152291 0" rpy="0 0 -1.34414" />
@@ -901,9 +901,9 @@
     </link>
     <link name="steer_rl">
         <inertial>
-            <mass value="0.62" />
-            <origin xyz="0.0417286 -6.15419e-06 -0.0997857" rpy="0 0 0" />
-            <inertia ixx="0.00216462073" ixy="1.14672523e-07" ixz="-2.44897281e-05" iyy="0.0029421617" iyz="3.61176962e-09" izz="0.000844216564" />
+            <mass value="1.00017118" />
+            <origin xyz="0.0417286205 -6.13364323e-06 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00349192139" ixy="1.84987342e-07" ixz="-3.95063228e-05" iyy="0.0047462344" iyz="5.82643205e-09" izz="0.0013618727" />
         </inertial>
         <visual>
             <origin xyz="-0.0126981 0.0127019 0" rpy="0 0 -0.000147481" />
@@ -917,9 +917,9 @@
     </link>
     <link name="steer_rr">
         <inertial>
-            <mass value="0.62" />
-            <origin xyz="0.0417286 3.3308e-06 -0.0997857" rpy="0 0 0" />
-            <inertia ixx="0.00216462072" ixy="-6.20637893e-08" ixz="-2.44897283e-05" iyy="0.00294216172" iyz="-1.95478481e-09" izz="0.000844216564" />
+            <mass value="1.00017118" />
+            <origin xyz="0.0417286157 3.3462634e-06 -0.0997857" rpy="0 0 0" />
+            <inertia ixx="0.00349192137" ixy="-1.00120022e-07" ixz="-3.95063232e-05" iyy="0.00474623443" iyz="-3.15341842e-09" izz="0.0013618727" />
         </inertial>
         <visual>
             <origin xyz="-0.012701 0.012699 0" rpy="0 -0 7.98206e-05" />
