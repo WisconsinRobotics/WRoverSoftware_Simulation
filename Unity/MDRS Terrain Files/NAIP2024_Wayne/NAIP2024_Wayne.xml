@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MI_Metadata xmlns:gco="http://www.isotc211.org/2005/gco"
+             xmlns:gmd="http://www.isotc211.org/2005/gmd"
+             xmlns:gmi="http://www.isotc211.org/2005/gmi"
+             xmlns:gmx="http://www.isotc211.org/2005/gmx"
+             xmlns:gsr="http://www.isotc211.org/2005/gsr"
+             xmlns:gss="http://www.isotc211.org/2005/gss"
+             xmlns:gts="http://www.isotc211.org/2005/gts"
+             xmlns:gml="http://www.opengis.net/gml/3.2"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns="http://www.isotc211.org/2005/gmi"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.isotc211.org/2005/gmi //nwsv-devel2/css_new$/Metadata_schemas/ISO/schema.xsd">
+   <gmd:fileIdentifier>
+      <gco:CharacterString>USDA-FPAC-BC Digital Ortho Mosaic</gco:CharacterString>
+   </gmd:fileIdentifier>
+   <gmd:language>
+      <gco:CharacterString>eng; USA</gco:CharacterString>
+   </gmd:language>
+   <gmd:characterSet>
+      <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode"
+                               codeListValue="utf8"
+                               codeSpace="004">utf8</gmd:MD_CharacterSetCode>
+   </gmd:characterSet>
+   <gmd:hierarchyLevel>
+      <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode"
+                        codeListValue="dataset"
+                        codeSpace="005">dataset</gmd:MD_ScopeCode>
+   </gmd:hierarchyLevel>
+   <gmd:contact>
+      <gmd:CI_ResponsibleParty>
+         <gmd:organisationName>
+            <gco:CharacterString>United States Department of Agriculture, Farm Production and Conservation Business Center, Geospatial Enterprise Operations (FPAC-BC-GEO)</gco:CharacterString>
+         </gmd:organisationName>
+         <gmd:contactInfo>
+            <gmd:CI_Contact>
+               <gmd:phone>
+                  <gmd:CI_Telephone>
+                     <gmd:voice>
+                        <gco:CharacterString>801-844-2900</gco:CharacterString>
+                     </gmd:voice>
+                  </gmd:CI_Telephone>
+               </gmd:phone>
+               <gmd:address>
+                  <gmd:CI_Address>
+                     <gmd:deliveryPoint>
+                        <gco:CharacterString>125 S. State St. Suite 6416</gco:CharacterString>
+                     </gmd:deliveryPoint>
+                     <gmd:city>
+                        <gco:CharacterString>Salt Lake City</gco:CharacterString>
+                     </gmd:city>
+                     <gmd:administrativeArea>
+                        <gco:CharacterString>Utah</gco:CharacterString>
+                     </gmd:administrativeArea>
+                     <gmd:postalCode>
+                        <gco:CharacterString>84138</gco:CharacterString>
+                     </gmd:postalCode>
+					 <gmd:country>
+					   <gco:CharacterString>USA</gco:CharacterString>
+					 </gmd:country>
+                     <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                     </gmd:country>
+                  </gmd:CI_Address>
+               </gmd:address>
+            </gmd:CI_Contact>
+         </gmd:contactInfo>
+         <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                             codeListValue="pointOfContact"
+                             codeSpace="007">pointOfContact</gmd:CI_RoleCode>
+         </gmd:role>
+      </gmd:CI_ResponsibleParty>
+   </gmd:contact>
+   <gmd:dateStamp>
+      <gco:Date>2024-10-10</gco:Date>
+   </gmd:dateStamp>
+   <gmd:metadataStandardName>
+      <gco:CharacterString>ISO 19115-2 Geographic Information - Metadata - Part 2: Extensions for Imagery and Gridded Data</gco:CharacterString>
+   </gmd:metadataStandardName>
+   <gmd:metadataStandardVersion>
+      <gco:CharacterString>ISO 19115-2:2009(E)</gco:CharacterString>
+   </gmd:metadataStandardVersion>
+   <gmd:spatialRepresentationInfo>
+      <gmd:MD_GridSpatialRepresentation>
+      <gmd:numberOfDimensions>
+        <gco:Integer>2</gco:Integer>
+      </gmd:numberOfDimensions>
+      <gmd:axisDimensionProperties>
+        <gmd:MD_Dimension>
+          <gmd:dimensionName>
+            <gmd:MD_DimensionNameTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#gmd:MD_DimensionNameTypeCode" codeListValue="column">column</gmd:MD_DimensionNameTypeCode>
+          </gmd:dimensionName>
+          <gmd:dimensionSize>
+            <gco:Integer>295550</gco:Integer>
+          </gmd:dimensionSize>
+          <gmd:resolution>
+            <gco:Length uom="meter">0.6</gco:Length>
+          </gmd:resolution>
+        </gmd:MD_Dimension>
+      </gmd:axisDimensionProperties>
+      <gmd:axisDimensionProperties>
+        <gmd:MD_Dimension>
+          <gmd:dimensionName>
+            <gmd:MD_DimensionNameTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#gmd:MD_DimensionNameTypeCode" codeListValue="row">row</gmd:MD_DimensionNameTypeCode>
+          </gmd:dimensionName>
+          <gmd:dimensionSize>
+            <gco:Integer>84683</gco:Integer>
+          </gmd:dimensionSize>
+          <gmd:resolution>
+            <gco:Length uom="meter">0.6</gco:Length>
+          </gmd:resolution>
+        </gmd:MD_Dimension>
+      </gmd:axisDimensionProperties>
+      <gmd:cellGeometry>
+        <gmd:MD_CellGeometryCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#gmd:MD_CellGeometryCode" codeListValue="point">point</gmd:MD_CellGeometryCode>
+      </gmd:cellGeometry>
+      <gmd:transformationParameterAvailability>
+        <gco:Boolean>0</gco:Boolean>
+      </gmd:transformationParameterAvailability>
+    </gmd:MD_GridSpatialRepresentation>
+ </gmd:spatialRepresentationInfo>
+   <gmd:referenceSystemInfo>
+      <gmd:MD_ReferenceSystem>
+         <gmd:referenceSystemIdentifier>
+            <gmd:RS_Identifier>
+               <gmd:authority>
+                  <gmd:CI_Citation>
+                     <gmd:title>
+                        <gco:CharacterString>D_North_American_1983/UTM zone 12</gco:CharacterString>
+                     </gmd:title>
+                     <gmd:date>
+                        <gmd:CI_Date>
+                           <gmd:date>
+                              <gco:Date>2008-11-12</gco:Date>
+                           </gmd:date>
+                           <gmd:dateType>
+                              <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                           </gmd:dateType>
+                        </gmd:CI_Date>
+                     </gmd:date>
+                     <gmd:citedResponsibleParty>
+                        <gmd:CI_ResponsibleParty>
+                           <gmd:organisationName>
+                              <gco:CharacterString>European Petroleum Survey Group</gco:CharacterString>
+                           </gmd:organisationName>
+                           <gmd:contactInfo>
+                              <gmd:CI_Contact>
+                                 <gmd:onlineResource>
+                                    <gmd:CI_OnlineResource>
+                                       <gmd:linkage>
+                                          <gmd:URL>http://www.epsg-registry.org/export.htm?gml=urn:ogc:def:crs:EPSG::26912</gmd:URL>
+                                       </gmd:linkage>
+                                    </gmd:CI_OnlineResource>
+                                 </gmd:onlineResource>
+                              </gmd:CI_Contact>
+                           </gmd:contactInfo>
+                           <gmd:role gco:nilReason="missing"/>
+                        </gmd:CI_ResponsibleParty>
+                     </gmd:citedResponsibleParty>
+                  </gmd:CI_Citation>
+               </gmd:authority>
+               <gmd:code>
+                  <gco:CharacterString>urn:ogc:def:crs:EPSG:26912</gco:CharacterString>
+               </gmd:code>
+           </gmd:RS_Identifier>
+         </gmd:referenceSystemIdentifier>        
+      </gmd:MD_ReferenceSystem>
+   </gmd:referenceSystemInfo>
+   <gmd:referenceSystemInfo xlink:href="https://www.ngdc.noaa.gov/docucomp/65f8b220-95ed-11e0-aa80-0800200c9a66"
+                            xlink:title="North American Datum 1983"/>
+   <gmd:referenceSystemInfo xlink:href="https://www.ngdc.noaa.gov/docucomp/c3895520-95ed-11e0-aa80-0800200c9a66"
+                            xlink:title="Geodetic Reference System 1980"/>
+   <gmd:identificationInfo>
+      <gmd:MD_DataIdentification>
+         <gmd:citation>
+            <gmd:CI_Citation>
+               <gmd:title>
+                  <gco:CharacterString>ortho_1-1_hm_s_ut055_2024_1</gco:CharacterString>
+               </gmd:title>
+               <gmd:date>
+                  <gmd:CI_Date>
+                     <gmd:date>
+                        <gco:Date>2024-10-10</gco:Date>
+                     </gmd:date>
+                     <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode"
+                                             codeListValue="publication"
+                                             codeSpace="002">publication</gmd:CI_DateTypeCode>
+                     </gmd:dateType>
+                  </gmd:CI_Date>
+               </gmd:date>
+               <gmd:identifier>
+                  <gmd:MD_Identifier>
+                     <gmd:code>
+                        <gco:CharacterString>none</gco:CharacterString>
+                     </gmd:code>
+                  </gmd:MD_Identifier>
+               </gmd:identifier>
+               <gmd:citedResponsibleParty>
+                  <gmd:CI_ResponsibleParty>
+                     <gmd:organisationName>
+                        <gco:CharacterString>Hexagon - Leica Geosystems</gco:CharacterString>
+                     </gmd:organisationName>
+                     <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                         codeListValue="originator"
+                                         codeSpace="006">originator</gmd:CI_RoleCode>
+                     </gmd:role>
+                  </gmd:CI_ResponsibleParty>
+               </gmd:citedResponsibleParty>
+               <gmd:citedResponsibleParty>
+                  <gmd:CI_ResponsibleParty>
+                     <gmd:organisationName>
+                        <gco:CharacterString>United States Department of Agriculture, Farm Production and Conservation Business Center, Geospatial Enterprise Operations (FPAC-BC-GEO)</gco:CharacterString>
+                     </gmd:organisationName>
+                     <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                           <gmd:address>
+                              <gmd:CI_Address>
+                                 <gmd:city>
+                                    <gco:CharacterString>Salt Lake City</gco:CharacterString>
+                                 </gmd:city>
+                                 <gmd:administrativeArea>
+                                    <gco:CharacterString> Utah</gco:CharacterString>
+                                 </gmd:administrativeArea>
+                              </gmd:CI_Address>
+                           </gmd:address>
+                        </gmd:CI_Contact>
+                     </gmd:contactInfo>
+                     <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                         codeListValue="publisher"
+                                         codeSpace="010">publisher</gmd:CI_RoleCode>
+                     </gmd:role>
+                  </gmd:CI_ResponsibleParty>
+               </gmd:citedResponsibleParty>
+               <gmd:presentationForm/>
+            </gmd:CI_Citation>
+         </gmd:citation>
+         <gmd:abstract>
+            <gco:CharacterString>This data set contains imagery from the National Agriculture Imagery Program (NAIP). The NAIP acquires digital ortho imagery during the agricultural growing seasons in the continental U.S. A primary goal of the NAIP program is to enable availability of ortho imagery within one year of acquisition. The NAIP provides 60 centimeter ground sample distance (GSD) ortho imagery rectified to a horizontal accuracy within +/- 4 meters of reference digital ortho quarter quads (DOQQ's) from the National Digital Ortho Program (NDOP) or from the National Agriculture Imagery Program (NAIP). The tiling format of NAIP imagery is based on a 3.75' x 3.75' quarter quadrangle with a 300 pixel buffer on all four sides. The NAIP imagery is formatted to the UTM coordinate system using the North American Datum of 1983 (NAD83). The NAIP imagery may contain as much as 10% cloud cover per tile. This file was generated by compressing NAIP imagery that cover the county extent. Two types of compression may be used for NAIP imagery: MrSID and JPEG 2000. The target value for the compression ratio is 40:1 for imagery.</gco:CharacterString>
+         </gmd:abstract>
+         <gmd:purpose>
+            <gco:CharacterString>The NAIP imagery is typically available for distribution within 60 days of the end of a flying season and is intended to provide current information of agricultural conditions in support of USDA farm programs. For USDA Farm Service Agency, the 1 meter and 1/2 meter GSD product provides an ortho image base for Common Land Unit boundaries and other data sets. The NAIP imagery is generally acquired in projects covering full states in cooperation with state government and other federal agencies who use the imagery for a variety of purposes including land use planning and natural resource assessment. The NAIP is also used for disaster response often providing the most current pre-event imagery.</gco:CharacterString>
+         </gmd:purpose>
+         <gmd:status>
+            <gmd:MD_ProgressCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ProgressCode"
+                                 codeListValue="completed"
+                                 codeSpace="001">completed</gmd:MD_ProgressCode>
+         </gmd:status>
+         <gmd:pointOfContact>
+            <gmd:CI_ResponsibleParty>
+               <gmd:organisationName>
+                  <gco:CharacterString>United States Department of Agriculture, Farm Production and Conservation Business Center, Geospatial Enterprise Operations (FPAC-BC-GEO)</gco:CharacterString>
+               </gmd:organisationName>
+               <gmd:contactInfo>
+                  <gmd:CI_Contact>
+                     <gmd:phone>
+                        <gmd:CI_Telephone>
+                           <gmd:voice>
+                              <gco:CharacterString>801-844-2922</gco:CharacterString>
+                           </gmd:voice>
+                           <gmd:facsimile>
+                              <gco:CharacterString>Nothing</gco:CharacterString>
+                           </gmd:facsimile>
+                        </gmd:CI_Telephone>
+                     </gmd:phone>
+                     <gmd:address>
+                        <gmd:CI_Address>
+                           <gmd:deliveryPoint>
+                              <gco:CharacterString>125 S. State St. Suite 6416</gco:CharacterString>
+                           </gmd:deliveryPoint>
+                           <gmd:city>
+                              <gco:CharacterString>Salt Lake City</gco:CharacterString>
+                           </gmd:city>
+                           <gmd:administrativeArea>
+                              <gco:CharacterString>Utah</gco:CharacterString>
+                           </gmd:administrativeArea>
+                           <gmd:postalCode>
+                              <gco:CharacterString>84138</gco:CharacterString>
+                           </gmd:postalCode>
+                           <gmd:country>
+                              <gco:CharacterString>USA</gco:CharacterString>
+                           </gmd:country>
+                           <gmd:electronicMailAddress>
+                              <gco:CharacterString>GEO.Sales@usda.gov</gco:CharacterString>
+                           </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                     </gmd:address>
+                  </gmd:CI_Contact>
+               </gmd:contactInfo>
+               <gmd:role>
+                  <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                   codeListValue="pointOfContact"
+                                   codeSpace="007">pointOfContact</gmd:CI_RoleCode>
+               </gmd:role>
+            </gmd:CI_ResponsibleParty>
+         </gmd:pointOfContact>
+         <gmd:resourceMaintenance>
+            <gmd:MD_MaintenanceInformation>
+               <gmd:maintenanceAndUpdateFrequency>
+                  <gmd:MD_MaintenanceFrequencyCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode"
+                                                   codeListValue="irregular"
+                                                   codeSpace="010">irregular</gmd:MD_MaintenanceFrequencyCode>
+               </gmd:maintenanceAndUpdateFrequency>
+            </gmd:MD_MaintenanceInformation>
+         </gmd:resourceMaintenance>
+         <gmd:graphicOverview>
+            <gmd:MD_BrowseGraphic>
+               <gmd:fileName>
+                  <gco:CharacterString>None</gco:CharacterString>
+               </gmd:fileName>
+               <gmd:fileDescription>
+                  <gco:CharacterString>None</gco:CharacterString>
+               </gmd:fileDescription>
+               <gmd:fileType>
+                  <gco:CharacterString>None</gco:CharacterString>
+               </gmd:fileType>
+            </gmd:MD_BrowseGraphic>
+         </gmd:graphicOverview>
+         <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+               <gmd:keyword>
+                  <gco:CharacterString>farming</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Digital Ortho rectified Image</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Mosaic</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Quarter Quadrangle</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Ortho Rectification</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Compression</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>MrSID</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>JPEG 2000</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>NAIP</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Compliance</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Aerial Compliance</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:type>
+                  <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
+                                          codeListValue="theme"
+                                          codeSpace="005">theme</gmd:MD_KeywordTypeCode>
+               </gmd:type>
+               <gmd:thesaurusName>
+                  <gmd:CI_Citation>
+                     <gmd:title>
+                        <gco:CharacterString>None</gco:CharacterString>
+                     </gmd:title>
+                     <gmd:date gco:nilReason="unknown"/>
+                  </gmd:CI_Citation>
+               </gmd:thesaurusName>
+            </gmd:MD_Keywords>
+         </gmd:descriptiveKeywords>
+         <gmd:descriptiveKeywords>
+            <gmd:MD_Keywords>
+               <gmd:keyword>
+                  <gco:CharacterString>UT</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Wayne</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>Wayne CO UT FSA</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:keyword>
+                  <gco:CharacterString>49055</gco:CharacterString>
+               </gmd:keyword>
+               <gmd:type>
+                  <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
+                                          codeListValue="place"
+                                          codeSpace="002">place</gmd:MD_KeywordTypeCode>
+               </gmd:type>
+               <gmd:thesaurusName>
+                  <gmd:CI_Citation>
+                     <gmd:title>
+                        <gco:CharacterString>Geographic Names Information System</gco:CharacterString>
+                     </gmd:title>
+                     <gmd:date gco:nilReason="unknown"/>
+                  </gmd:CI_Citation>
+               </gmd:thesaurusName>
+            </gmd:MD_Keywords>
+         </gmd:descriptiveKeywords>
+         <gmd:resourceConstraints>
+            <gmd:MD_LegalConstraints>
+               <gmd:accessConstraints>
+                  <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode"
+                                          codeListValue="otherRestrictions"
+                                          codeSpace="008">otherRestrictions</gmd:MD_RestrictionCode>
+               </gmd:accessConstraints>
+               <gmd:useConstraints>
+                  <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode"
+                                          codeListValue="otherRestrictions"
+                                          codeSpace="008">otherRestrictions</gmd:MD_RestrictionCode>
+               </gmd:useConstraints>
+               <gmd:otherConstraints>
+                  <gco:CharacterString>Access Constraints: There are no limitations for access. Use Constraints: None, The USDA-Farm Production and Conservation Business Center asks to be credited in derived products. If defects are found in the NAIP imagery during the 1 year warranty period such as horizontal offsets, replacement imagery may be provided. Imagery containing defects that require the acquisition of new imagery, such as excessive cloud cover, specular reflectance, etc., will not be replaced within a NAIP project year. Distribution Liability: In no event shall the creators, custodians, or distributors of this information be liable for any damages arising out of its use (or the inability to use it).</gco:CharacterString>
+               </gmd:otherConstraints>
+            </gmd:MD_LegalConstraints>
+         </gmd:resourceConstraints>
+         <gmd:spatialRepresentationType>
+            <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode"
+                                                  codeListValue="grid"
+                                                  codeSpace="002">grid</gmd:MD_SpatialRepresentationTypeCode>
+         </gmd:spatialRepresentationType>
+         <gmd:language>
+            <gco:CharacterString>eng; USA</gco:CharacterString>
+         </gmd:language>
+         <gmd:environmentDescription>
+            <gco:CharacterString>Native Dataset Environment: NAIP 3.75 Quarter Quadrangles mosaicked into a County format using data compression software. The target value for the compression ratio is 40:1 for the imagery.</gco:CharacterString>
+         </gmd:environmentDescription>
+         <gmd:extent>
+            <gmd:EX_Extent id="boundingExtent">
+               <gmd:geographicElement>
+                  <gmd:EX_GeographicBoundingBox id="boundingGeographicBoundingBox">
+                     <gmd:westBoundLongitude>
+                        <gco:Decimal>-111.882582</gco:Decimal>
+                     </gmd:westBoundLongitude>
+                     <gmd:eastBoundLongitude>
+                        <gco:Decimal>-109.865926</gco:Decimal>
+                     </gmd:eastBoundLongitude>
+                     <gmd:northBoundLatitude>
+                        <gco:Decimal>38.567127</gco:Decimal>
+                     </gmd:northBoundLatitude>
+                     <gmd:southBoundLatitude>
+                        <gco:Decimal>38.117770</gco:Decimal>
+                     </gmd:southBoundLatitude>
+                  </gmd:EX_GeographicBoundingBox>
+               </gmd:geographicElement>
+               <gmd:temporalElement>
+                  <gmd:EX_TemporalExtent id="boundingTemporalExtent">
+                     <gmd:extent>
+                        <gml:TimeInstant gml:id="boundingTimeInstantExtent">
+                           <gml:description>Photography Source Image Dates.</gml:description>
+                           <gml:timePosition>2024-10-10</gml:timePosition>
+                        </gml:TimeInstant>
+                     </gmd:extent>
+                  </gmd:EX_TemporalExtent>
+               </gmd:temporalElement>
+            </gmd:EX_Extent>
+         </gmd:extent>
+      </gmd:MD_DataIdentification>
+   </gmd:identificationInfo>
+   <gmd:contentInfo>
+      <gmd:MD_FeatureCatalogueDescription>
+         <gmd:includedWithDataset>
+            <gco:Boolean>false</gco:Boolean>
+         </gmd:includedWithDataset>
+         <gmd:featureCatalogueCitation gco:nilReason="unknown">
+            <gmd:CI_Citation>
+               <gmd:title>
+                  <gco:CharacterString>Entity and Attribute Information</gco:CharacterString>
+               </gmd:title>
+               <gmd:date gco:nilReason="unknown"/>
+               <gmd:otherCitationDetails>
+                  <gco:CharacterString>Entity and Attribute Overview: 8-bit pixels per band, 0-255, 4-band RGBiR Entity and Attribute Detail Citation: None</gco:CharacterString>
+               </gmd:otherCitationDetails>
+            </gmd:CI_Citation>
+         </gmd:featureCatalogueCitation>
+      </gmd:MD_FeatureCatalogueDescription>
+   </gmd:contentInfo>
+   <gmd:distributionInfo>
+      <gmd:MD_Distribution>
+         <gmd:distributionFormat>
+            <gmd:MD_Format>
+               <gmd:name>
+                  <gco:CharacterString>compressed county mosaic</gco:CharacterString>
+               </gmd:name>
+               <gmd:version gco:nilReason="unknown"/>
+            </gmd:MD_Format>
+         </gmd:distributionFormat>
+         <gmd:distributor>
+            <gmd:MD_Distributor>
+               <gmd:distributorContact>
+                  <gmd:CI_ResponsibleParty>
+                     <gmd:individualName>
+                        <gco:CharacterString>Supervisor Customer Services Section</gco:CharacterString>
+                     </gmd:individualName>
+                     <gmd:organisationName>
+                        <gco:CharacterString>>United States Department of Agriculture, Farm Production and Conservation Business Center, Geospatial Enterprise Operations (FPAC-BC-GEO)</gco:CharacterString>
+                     </gmd:organisationName>
+                     <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                           <gmd:phone>
+                              <gmd:CI_Telephone>
+                                 <gmd:voice>
+                                    <gco:CharacterString>801-844-2922</gco:CharacterString>
+                                 </gmd:voice>
+                                 <gmd:facsimile>
+                                    <gco:CharacterString>Nothing</gco:CharacterString>
+                                 </gmd:facsimile>
+                              </gmd:CI_Telephone>
+                           </gmd:phone>
+                           <gmd:address>
+                              <gmd:CI_Address>
+                                 <gmd:deliveryPoint>
+                                    <gco:CharacterString>125 S. State St. Suite 6416</gco:CharacterString>
+                                 </gmd:deliveryPoint>
+                                 <gmd:city>
+                                    <gco:CharacterString>Salt Lake City</gco:CharacterString>
+                                 </gmd:city>
+                                 <gmd:administrativeArea>
+                                    <gco:CharacterString>Utah</gco:CharacterString>
+                                 </gmd:administrativeArea>
+                                 <gmd:postalCode>
+                                    <gco:CharacterString>84138</gco:CharacterString>
+                                 </gmd:postalCode>
+                                 <gmd:country>
+                                    <gco:CharacterString>USA</gco:CharacterString>
+                                 </gmd:country>
+                                 <gmd:electronicMailAddress>
+                                    <gco:CharacterString>GEO.Sales@usda.gov</gco:CharacterString>
+                                 </gmd:electronicMailAddress>
+                              </gmd:CI_Address>
+                           </gmd:address>
+                        </gmd:CI_Contact>
+                     </gmd:contactInfo>
+                     <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                         codeListValue="distributor"
+                                         codeSpace="005">distributor</gmd:CI_RoleCode>
+                     </gmd:role>
+                  </gmd:CI_ResponsibleParty>
+               </gmd:distributorContact>
+               <gmd:distributionOrderProcess>
+                  <gmd:MD_StandardOrderProcess>
+                     <gmd:fees>
+                        <gco:CharacterString>Contact the Farm Production and Conservation Business Center for more information</gco:CharacterString>
+                     </gmd:fees>
+                  </gmd:MD_StandardOrderProcess>
+               </gmd:distributionOrderProcess>
+            </gmd:MD_Distributor>
+         </gmd:distributor>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:onLine>
+                  <gmd:CI_OnlineResource>
+                     <gmd:linkage>
+                        <gmd:URL>None</gmd:URL>
+                     </gmd:linkage>
+                  </gmd:CI_OnlineResource>
+               </gmd:onLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:offLine>
+                  <gmd:MD_Medium>
+                     <gmd:name/>
+                     <gmd:mediumFormat>
+                        <gmd:MD_MediumFormatCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_MediumFormatCode"
+                                                 codeListValue="iso9660"
+                                                 codeSpace="004">iso9660</gmd:MD_MediumFormatCode>
+                     </gmd:mediumFormat>
+                  </gmd:MD_Medium>
+               </gmd:offLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:offLine>
+                  <gmd:MD_Medium>
+                     <gmd:name/>
+                     <gmd:mediumFormat/>
+                  </gmd:MD_Medium>
+               </gmd:offLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+         <gmd:transferOptions>
+            <gmd:MD_DigitalTransferOptions>
+               <gmd:offLine>
+                  <gmd:MD_Medium>
+                     <gmd:name/>
+                     <gmd:mediumFormat/>
+                  </gmd:MD_Medium>
+               </gmd:offLine>
+            </gmd:MD_DigitalTransferOptions>
+         </gmd:transferOptions>
+      </gmd:MD_Distribution>
+   </gmd:distributionInfo>
+   <gmd:dataQualityInfo>
+      <gmd:DQ_DataQuality>
+         <gmd:scope gco:nilReason="unknown"/>
+         <gmd:report>
+            <gmd:DQ_AbsoluteExternalPositionalAccuracy>
+               <gmd:nameOfMeasure>
+                  <gco:CharacterString>Horizontal Positional Accuracy</gco:CharacterString>
+               </gmd:nameOfMeasure>
+               <gmd:measureDescription/>
+               <gmd:evaluationMethodDescription>
+                  <gco:CharacterString>FSA Digital Orthophoto Specs.</gco:CharacterString>
+               </gmd:evaluationMethodDescription>
+               <gmd:result>
+                  <gmd:DQ_QuantitativeResult>
+                     <gmd:valueUnit>
+                        <gml:BaseUnit gml:id="meters">
+                           <gml:identifier codeSpace="meters"/>
+                           <gml:unitsSystem xlink:href="http://www.bipm.org/en/si/"/>
+                        </gml:BaseUnit>
+                     </gmd:valueUnit>
+                     <gmd:value/>
+                  </gmd:DQ_QuantitativeResult>
+               </gmd:result>
+            </gmd:DQ_AbsoluteExternalPositionalAccuracy>
+         </gmd:report>
+         <gmd:report>
+            <gmd:DQ_AbsoluteExternalPositionalAccuracy>
+               <gmd:nameOfMeasure>
+                  <gco:CharacterString>Vertical Positional Accuracy</gco:CharacterString>
+               </gmd:nameOfMeasure>
+               <gmd:measureDescription/>
+               <gmd:evaluationMethodDescription>
+                  <gco:CharacterString>N/A 2d only</gco:CharacterString>
+               </gmd:evaluationMethodDescription>
+               <gmd:result>
+                  <gmd:DQ_QuantitativeResult>
+                     <gmd:valueUnit>
+                        <gml:BaseUnit gml:id="meters">
+                           <gml:identifier codeSpace="meters"/>
+                           <gml:unitsSystem xlink:href="http://www.bipm.org/en/si/"/>
+                        </gml:BaseUnit>
+                     </gmd:valueUnit>
+                     <gmd:value/>
+                  </gmd:DQ_QuantitativeResult>
+               </gmd:result>
+            </gmd:DQ_AbsoluteExternalPositionalAccuracy>
+         </gmd:report>
+         <gmd:report>
+            <gmd:DQ_CompletenessCommission>
+               <gmd:result gco:nilReason="unknown"/>
+            </gmd:DQ_CompletenessCommission>
+         </gmd:report>
+         <gmd:report>
+            <gmd:DQ_CompletenessOmission>
+               <gmd:evaluationMethodDescription>
+                  <gco:CharacterString>None</gco:CharacterString>
+               </gmd:evaluationMethodDescription>
+               <gmd:result gco:nilReason="unknown"/>
+            </gmd:DQ_CompletenessOmission>
+         </gmd:report>
+         <gmd:report>
+            <gmd:DQ_ConceptualConsistency>
+               <gmd:measureDescription>
+                  <gco:CharacterString>NAIP 3.75 minute tile file names are based on the USGS quadrangle naming convention.</gco:CharacterString>
+               </gmd:measureDescription>
+               <gmd:result gco:nilReason="unknown"/>
+            </gmd:DQ_ConceptualConsistency>
+         </gmd:report>
+         <gmd:lineage>
+            <gmd:LI_Lineage>
+               <gmd:processStep>
+                  <gmd:LI_ProcessStep>
+                     <gmd:description>
+                        <gco:CharacterString>Digital imagery was collected at a nominal GSD of 15cm using 2 Rockwell AC90, one Swearingen Merlin-3 and one Piper PAY2 aircraft flying at an average flight height of 4560m AGL. Aircraft flew with Leica Geosystem's DMC-4X digital sensors with firmware 6.3. Each sensor collected 4 image bands Red, Green, Blue and Near-infrared in an integrated frame image with an across-track field of view 71 degrees.  The DMC-4X spectral ranges are; Red 580-660nm, Green 480-590nm, Blue 420-510nm and Near-infrared at 720-850nm. The BSI CMOS arrays have a pixel size of 3.76 microns and deliver an integrated frame image with 54400x8320 format. The CMOS arrays have a dynamic range of 83db and the A/D converters have a resolution of 14bits.  The DMC-4X is a frame-based sensor the ground footprint of the imagery is approximately 8km wide x 1.25 km high at a nominal 15cm GSD. The maximum flightline length is limited to approximately 163km. The factory calibrations and IMU alignments for each sensor (Serial Numbers: 48901, 48902, and 48903) were tested and verified by in-situ test flights before the start of the project. The Leica MissionPro Flight Planning Software is used to develop the flight acquisition plans. Flight acquisition sub blocks are designed first to define the GNSS base station logistics, and to break the project up into manageable acquisition units. The flight acquisition sub blocks are designed based on the specified acquisition season, native UTM zone of the DOQQs, flight line length limitations (to ensure sufficient performance of the IMU solution) as well as air traffic restrictions in the area. Once the sub blocks have been delineated they are brought into MissionPro for flight line design. The design parameters used in MissionPro will be 20% lateral overlap and 15cm resolution.  The flight lines have been designed with a north/south orientation or east/west where required for efficiency. The design takes into account the latitude of the state, which affects line spacing due to convergence as well as the terrain. SRTM elevation data is used in the MissionPro design to ensure the 15cm GSD is achieved over all types of terrain.  The raw data was downloaded from the sensors after each flight using Leica HxMap software. The imagery was then georeferenced using the 500Hz GPS/INS data creating an exterior orientation for each frame image (x/y/z/o/p/k). Leica HxMap APM software was used to automatically generate tiepoint measurements between the frame images for each line and to tie all flight lines together. The resulting point data and exterior orientation data were used to perform a full bundle adjustment using HxMap Triangulation software. Blunders were removed, and additional tie points measured in weak areas to ensure a robust solution. Once the point data was clean and point coverage was acceptable, photo-identifiable GPS-surveyed ground control points were introduced into the block adjustment. The bundle adjustment process produces revised exterior orientation data for the sensor with GPS/INS, datum, and sensor calibration errors modeled and removed. Using the revised exterior orientation from the bundle adjustment, orthorectified image frames were created with HxMap software and the 2018 HxIP DEM or NED DEM. The HxMap orthorectification software applies an atmospheric-BRDF radiometric correction to the imagery. This correction compensates for atmospheric absorption, solar illumination angle and bi-directional reflectance. The orthorectified frames were then overlaid with each other and the ground control to check accuracy. Once the accuracy of the orthorectified image strips were validated the strips were then imported into the HxMap Mosaic software which was used for the final radiometric balance, mosaic, and DOQQ sheet creation. The final DOQQ sheets, with a 300m buffer and a ground pixel resolution of 60cm were then combined and compressed to create the county wide CCMs.</gco:CharacterString>
+                     </gmd:description>
+                     <gmd:dateTime/>
+                  </gmd:LI_ProcessStep>
+               </gmd:processStep>
+            </gmd:LI_Lineage>
+         </gmd:lineage>
+      </gmd:DQ_DataQuality>
+   </gmd:dataQualityInfo>
+   <gmd:metadataMaintenance>
+      <gmd:MD_MaintenanceInformation>
+         <gmd:maintenanceAndUpdateFrequency gco:nilReason="unknown"/>
+         <gmd:maintenanceNote>
+            <gco:CharacterString>This metadata was automatically generated from the Content Standard for Digital Geospatial Metadatastandard version FGDC-STD-001-1998 using the January 2013 version of the FGDC CSDGM to ISO 19115-2 transform.</gco:CharacterString>
+         </gmd:maintenanceNote>
+         <gmd:contact>
+            <gmd:CI_ResponsibleParty>
+               <gmd:individualName/>
+               <gmd:organisationName>
+                  <gco:CharacterString>United States Department of Agriculture, Farm Production and Conservation Business Center, Geospatial Enterprise Operations (FPAC-BC-GEO)</gco:CharacterString>
+               </gmd:organisationName>
+               <gmd:contactInfo>
+                  <gmd:CI_Contact>
+                     <gmd:phone>
+                        <gmd:CI_Telephone>
+                           <gmd:voice>
+                              <gco:CharacterString>801-844-2900</gco:CharacterString>
+                           </gmd:voice>
+                        </gmd:CI_Telephone>
+                     </gmd:phone>
+                     <gmd:address>
+                        <gmd:CI_Address>
+                           <gmd:deliveryPoint>
+                              <gco:CharacterString>125 S. State St. Suite 6416</gco:CharacterString>
+                           </gmd:deliveryPoint>
+                           <gmd:city>
+                              <gco:CharacterString>Salt Lake City</gco:CharacterString>
+                           </gmd:city>
+                           <gmd:administrativeArea>
+                              <gco:CharacterString>Utah</gco:CharacterString>
+                           </gmd:administrativeArea>
+                           <gmd:postalCode>
+                              <gco:CharacterString>84138</gco:CharacterString>
+                           </gmd:postalCode>
+                           <gmd:country>
+                              <gco:CharacterString>USA</gco:CharacterString>
+                           </gmd:country>
+						   <gmd:electronicMailAddress>
+							  <gco:CharacterString>GEO.Sales@usda.gov</gco:CharacterString>
+						   </gmd:electronicMailAddress>						   
+                        </gmd:CI_Address>
+                     </gmd:address>
+                  </gmd:CI_Contact>
+               </gmd:contactInfo>
+               <gmd:role>
+                  <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
+                                   codeListValue="custodian"
+                                   codeSpace="002">custodian</gmd:CI_RoleCode>
+               </gmd:role>
+            </gmd:CI_ResponsibleParty>
+         </gmd:contact>
+      </gmd:MD_MaintenanceInformation>
+   </gmd:metadataMaintenance>
+</MI_Metadata>
