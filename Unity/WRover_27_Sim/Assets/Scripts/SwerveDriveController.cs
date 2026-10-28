@@ -28,6 +28,8 @@ using UnityEngine;
 /// </summary>
 [DisallowMultipleComponent]
 [DefaultExecutionOrder(-50)]
+
+
 public class SwerveDriveController : MonoBehaviour
 {
     public enum CommandSource { Auto, KeyboardOnly, ExternalOnly }
@@ -45,6 +47,8 @@ public class SwerveDriveController : MonoBehaviour
         [NonSerialized] public float holdHeading;         // heading kept while stopped
         [NonSerialized] public float targetSpeed;         // m/s along measured heading
         [NonSerialized] public float measuredSpeed;       // m/s along measured heading
+        [NonSerialized] public float currentAxleTorque; // Torque of meter
+        [NonSerialized] public float currentMotorRPM; // Rotations per minute of the motor
         [NonSerialized] public bool initialized;
     }
 
@@ -56,38 +60,54 @@ public class SwerveDriveController : MonoBehaviour
 
     [Header("Rover limits")]
     [Tooltip("Max linear speed of the rover (m/s), magnitude of (vx, vy).")]
-    public float maxLinearSpeed = 3.0f;
+    public float maxLinearSpeed = 2.566f;
     [Tooltip("Max yaw rate of the whole rover (rad/s).")]
-    public float maxAngularSpeed = 1.5f;
+    public float maxAngularSpeed = 3.5f;
     [Tooltip("Placeholder until real data: linear acceleration limit (m/s^2).")]
-    public float maxLinearAccel = 2.0f;
+    public float maxLinearAccel = 3.0f;
     [Tooltip("Placeholder until real data: angular acceleration limit (rad/s^2).")]
-    public float maxAngularAccel = 3.0f;
+    public float maxAngularAccel = 6.0f;
 
     [Header("Module limits")]
-    [Tooltip("Max ground speed of any single wheel (m/s). Assumed equal to the rover's max linear speed.")]
-    public float maxWheelSurfaceSpeed = 3.0f;
-    [Tooltip("Max steering rate per module (rad/s). Estimated as 2 x the rover's max yaw rate (see docs).")]
-    public float maxSteerRate = 3.0f;
+    [Tooltip("Max ground speed of any single wheel (m/s). 227RPM gives 227 * 2pi / 60 ~ 23 rad/s * 0.110 = 2.615 m/s")]
+    public float maxWheelSurfaceSpeed = 2.615f;
+    [Tooltip("Max steering rate per module (rad/s). 172 RPM for swerve motor gives 172 * 2pi / 60 ~ 18 rad/s")]
+    public float maxSteerRate = 18.01f;
     [Tooltip("Off = only normalize to +-180 deg (your rover). On = also reverse the wheel instead of steering more than 90 deg.")]
     public bool reverseWheelInsteadOfTurningPast90 = false;
     [Tooltip("Scale wheel speed by cos(steering error) so wheels don't drag sideways while a module is still turning.")]
     public bool slowWheelsWhileSteering = true;
 
     [Header("Steering drive (position)")]
-    public float steerStiffness = 10f;   // N*m per degree
-    public float steerDamping = 0.1f;    // N*m*s per degree
-    public float steerForceLimit = 20f;  // N*m  (placeholder: steering motor torque)
+    [Tooltip("Proportional gain (N*m per degree). 80-150 keeps azimuth locked over rocky ruts.")]
+    public float steerStiffness = 100f;   // N*m per degree
+    [Tooltip("Derivative gain (N*m*s per degree). Prevents caster shimmy on uneven triangles.")]
+    public float steerDamping = 5f;    // N*m*s per degree
+    [Tooltip("Max steering azimuth torque (N*m) after gearbox reduction. Range is 45-120N")]
+    public float steerForceLimit = 55f;  // N*m  (placeholder: steering motor torque) 2.67 * 25 * 0.85 (gear ratio * efficiency * Tstall)
 
-    [Header("Wheel drive (velocity)")]
-    public float wheelDamping = 1f;      // N*m*s per degree
-    public float wheelForceLimit = 15f;  // N*m  (placeholder: wheel motor torque)
+    [Header("REV NEO v1.1 Drive Motor & 64:1 Gearbox")]
+    [Tooltip("Stall torque at motor shaft in N*m - Estimated from mechanical's graph")]
+    public float motorStallTorque = 2.67f;
+    [Tooltip("Free speed in RPM - estimated from Mechanical's graph")]
+    public float motorFreeSpeedRPM = 5676f;
+    [Tooltip("Planetary reduction ratio G:1")]
+    public float gearRatio = 25.0f;
+    [Tooltip("Transmission mechanical efficiency (0.0 - 1.0)")]
+    public float gearEfficiency = 0.88f;
+    [Tooltip("Wheel Damping")]
+    public float wheelDamping = 1f;
+    
+    
+    [Header("Soil Interaction")]
+    [Tooltip("Soil rolling resistance coefficient on desert sand (0.08 - 0.12)")]
+    public float rollingResistanceCoeff = 0.1f;
 
     [Header("Command input")]
     public CommandSource source = CommandSource.Auto;
     [Tooltip("External (ROS) command is dropped if no new message arrives within this time (s).")]
     public float externalCommandTimeout = 0.5f;
-    [Range(0.05f, 1f)] public float keyboardSpeedFraction = 0.5f;
+    [Range(0.05f, 1f)] public float keyboardSpeedFraction = 1.0f;
     [Tooltip("Keyboard W/A/S/D relative to the rover's starting heading instead of its current heading.")]
     public bool keyboardFieldCentric = false;
 
@@ -293,6 +313,7 @@ public class SwerveDriveController : MonoBehaviour
         // 6. Odometry
         UpdateOdometry(dt);
         VerifyJointSign();
+        ApplyTerrainIntreaction();
     }
 
     void UpdateFrame()
@@ -358,10 +379,24 @@ public class SwerveDriveController : MonoBehaviour
         float s = wheelDir * speed;
         if (slowWheelsWhileSteering) s *= Mathf.Clamp01(Mathf.Cos(Wrap(desired - m.measuredHeading)));
         m.targetSpeed = s;
+
+        // Motor Torque Dynamics
+        float wheelRadPerSec = Mathf.Abs(m.wheel.jointVelocity[0]);
+        float wheelRPM = wheelRadPerSec * (60.0f / (2.0f * Mathf.PI));
+        float motorRPM = wheelRPM * gearRatio;
+
+        // EMF Curve
+        float availableMotorTorque = Mathf.Clamp(
+            motorStallTorque * (1.0f - (motorRPM / motorFreeSpeedRPM)), 0.0f, motorStallTorque
+        );
+
+        // Torque at wheel axle
+        float maxAxleTorque = availableMotorTorque * gearRatio * gearEfficiency;
+
         ArticulationDrive wd = m.wheel.xDrive;
         wd.stiffness = 0f;
         wd.damping = wheelDamping;
-        wd.forceLimit = wheelForceLimit;
+        wd.forceLimit = Mathf.Max(maxAxleTorque, 0.5f);
         wd.targetVelocity = s / wheelRadius * Mathf.Rad2Deg;
         m.wheel.xDrive = wd;
 
@@ -450,5 +485,37 @@ public class SwerveDriveController : MonoBehaviour
         }
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(center, center + fwd * 0.6f);
+    }
+
+    void ApplyTerrainIntreaction()
+    {
+        foreach(var m in modules)
+        {
+            Vector3 wheelPos = m.wheel.worldCenterOfMass;
+            // Init ray to start 20 cm (wheel radius is 11 cm) above wheel center
+            Ray ray = new Ray(wheelPos + Vector3.up * 0.2f, Vector3.down); // Raycasting
+
+            // Shoot a ray 50cm down
+            if (Physics.Raycast(ray, out RaycastHit hit, 0.5f))
+            {
+                Terrain terrain = hit.collider.GetComponent<Terrain>();
+                float localResistance = rollingResistanceCoeff;
+
+                // TODO: When splatmap implemented sample what splatmap it is to better model soil interactions
+
+                Vector3 wheelLinearVel = m.wheel.velocity;
+                Vector3 rollVel = Vector3.ProjectOnPlane(wheelLinearVel, hit.normal);
+                
+                // Deadzone check actual speed is speed > 3cm /sec. Prevents parked rover from vibrating back and forth
+                if (rollVel.sqrMagnitude > 0.001f)
+                {
+                    float totalRoverMass = 45.5f;
+                    float cosTheta = Mathf.Max(Vector3.Dot(hit.normal, Vector3.up), 0.1f);
+                    float normalForce = (totalRoverMass / 4.0f) * Physics.gravity.magnitude * cosTheta; // Divide mass equally across load bearing wheels (TODO check with mechanical)
+                    Vector3 resistanceForce = -rollVel.normalized * localResistance * normalForce;
+                    m.wheel.AddForce(resistanceForce, ForceMode.Force);
+                }
+            }
+        }
     }
 }
