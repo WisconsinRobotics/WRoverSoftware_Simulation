@@ -47,8 +47,8 @@ public class SwerveDriveController : MonoBehaviour
         [NonSerialized] public float holdHeading;         // heading kept while stopped
         [NonSerialized] public float targetSpeed;         // m/s along measured heading
         [NonSerialized] public float measuredSpeed;       // m/s along measured heading
-        [NonSerialized] public float currentAxleTorque; // Torque of meter
-        [NonSerialized] public float currentMotorRPM; // Rotations per minute of the motor
+        [NonSerialized] public float currentAxleTorque;   // N*m, wheel drive torque limit from the motor curve
+        [NonSerialized] public float currentMotorRPM;     // motor shaft RPM (wheel RPM * gearRatio)
         [NonSerialized] public bool initialized;
     }
 
@@ -74,7 +74,7 @@ public class SwerveDriveController : MonoBehaviour
     [Tooltip("Max steering rate per module (rad/s). 172 RPM for swerve motor gives 172 * 2pi / 60 ~ 18 rad/s")]
     public float maxSteerRate = 18.01f;
     [Tooltip("Off = only normalize to +-180 deg (your rover). On = also reverse the wheel instead of steering more than 90 deg.")]
-    public bool reverseWheelInsteadOfTurningPast90 = false;
+    public bool reverseWheelInsteadOfTurningPast90 = true;
     [Tooltip("Scale wheel speed by cos(steering error) so wheels don't drag sideways while a module is still turning.")]
     public bool slowWheelsWhileSteering = true;
 
@@ -111,8 +111,7 @@ public class SwerveDriveController : MonoBehaviour
     [Tooltip("Keyboard W/A/S/D relative to the rover's starting heading instead of its current heading.")]
     public bool keyboardFieldCentric = false;
 
-    [Header("Debug")]
-    public bool showHud = true;
+    [Header("Debug (live data: Tools > Rover > Swerve Debug)")]
     public bool drawGizmos = true;
     [SerializeField] private string activeSource = "-";
     [SerializeField] private Vector3 requestedCommand;   // vx, vy, wz before limits
@@ -132,7 +131,12 @@ public class SwerveDriveController : MonoBehaviour
     public Vector3 OdometryPose => odometryPose;
     /// <summary>Wheel odometry twist in the robot frame: vx, vy (m/s), wz (rad/s).</summary>
     public Vector3 OdometryTwist => odometryTwist;
+    /// <summary>Command after limits and acceleration: vx, vy (m/s), wz (rad/s).</summary>
     public Vector3 AppliedCommand => appliedCommand;
+    /// <summary>Command before limits: vx, vy (m/s), wz (rad/s).</summary>
+    public Vector3 RequestedCommand => requestedCommand;
+    /// <summary>Which input is driving the rover (Keyboard, External (ROS), Idle...).</summary>
+    public string ActiveSource => activeSource;
     public bool IsReady => ready;
 
     /// <summary>
@@ -313,7 +317,7 @@ public class SwerveDriveController : MonoBehaviour
         // 6. Odometry
         UpdateOdometry(dt);
         VerifyJointSign();
-        ApplyTerrainIntreaction();
+        ApplyTerrainInteraction();
     }
 
     void UpdateFrame()
@@ -400,6 +404,8 @@ public class SwerveDriveController : MonoBehaviour
         wd.targetVelocity = s / wheelRadius * Mathf.Rad2Deg;
         m.wheel.xDrive = wd;
 
+        m.currentMotorRPM = motorRPM;
+        m.currentAxleTorque = wd.forceLimit;
         m.measuredSpeed = m.wheel.jointVelocity[0] * wheelRadius;
     }
 
@@ -455,20 +461,7 @@ public class SwerveDriveController : MonoBehaviour
     static float Wrap(float a) => Mathf.Repeat(a + Mathf.PI, 2f * Mathf.PI) - Mathf.PI;
 
     // ---------------------------------------------------------------- debug
-    void OnGUI()
-    {
-        if (!showHud || !ready) return;
-        var sb = new System.Text.StringBuilder();
-        sb.AppendLine($"Source: {activeSource}");
-        sb.AppendLine($"Cmd   vx {appliedCommand.x,6:F2}  vy {appliedCommand.y,6:F2}  wz {appliedCommand.z,6:F2}");
-        sb.AppendLine($"Odom  vx {odometryTwist.x,6:F2}  vy {odometryTwist.y,6:F2}  wz {odometryTwist.z,6:F2}");
-        sb.AppendLine($"Pose  x {odometryPose.x,6:F2}  y {odometryPose.y,6:F2}  yaw {odometryPose.z * Mathf.Rad2Deg,6:F1} deg");
-        foreach (var m in modules)
-            sb.AppendLine($"{m.id}: steer {m.measuredHeading * Mathf.Rad2Deg,6:F1} deg (cmd {m.commandedHeading * Mathf.Rad2Deg,6:F1})  wheel {m.measuredSpeed,5:F2} / {m.targetSpeed,5:F2} m/s");
-        sb.Append("W/S fwd  A/D strafe  Q/E rotate  Space stop");
-        GUI.Box(new Rect(10, 10, 430, 175), "");
-        GUI.Label(new Rect(18, 14, 420, 170), sb.ToString());
-    }
+    // Live data is shown in the editor window (Assets/Editor/SwerveDebugWindow.cs).
 
     void OnDrawGizmos()
     {
@@ -487,18 +480,38 @@ public class SwerveDriveController : MonoBehaviour
         Gizmos.DrawLine(center, center + fwd * 0.6f);
     }
 
-    void ApplyTerrainIntreaction()
+    private readonly RaycastHit[] groundHits = new RaycastHit[8];
+
+    /// <summary>
+    /// Closest hit below origin that is NOT part of this rover. A plain Raycast starting
+    /// above the wheel hits the wheel's own collider first, so the "ground" normal was the
+    /// top of the tire instead of the terrain.
+    /// </summary>
+    bool RaycastGround(Vector3 origin, float maxDistance, out RaycastHit ground)
+    {
+        int n = Physics.RaycastNonAlloc(origin, Vector3.down, groundHits, maxDistance, ~0, QueryTriggerInteraction.Ignore);
+        ground = default;
+        float best = float.MaxValue;
+        for (int i = 0; i < n; i++)
+        {
+            if (groundHits[i].collider.transform.IsChildOf(transform)) continue;  // skip own links
+            if (groundHits[i].distance < best)
+            {
+                best = groundHits[i].distance;
+                ground = groundHits[i];
+            }
+        }
+        return best < float.MaxValue;
+    }
+
+    void ApplyTerrainInteraction()
     {
         foreach(var m in modules)
         {
             Vector3 wheelPos = m.wheel.worldCenterOfMass;
-            // Init ray to start 20 cm (wheel radius is 11 cm) above wheel center
-            Ray ray = new Ray(wheelPos + Vector3.up * 0.2f, Vector3.down); // Raycasting
-
-            // Shoot a ray 50cm down
-            if (Physics.Raycast(ray, out RaycastHit hit, 0.5f))
+            // Ray starts 20 cm (wheel radius is 11 cm) above wheel center and goes 50 cm down
+            if (RaycastGround(wheelPos + Vector3.up * 0.2f, 0.5f, out RaycastHit hit))
             {
-                Terrain terrain = hit.collider.GetComponent<Terrain>();
                 float localResistance = rollingResistanceCoeff;
 
                 // TODO: When splatmap implemented sample what splatmap it is to better model soil interactions

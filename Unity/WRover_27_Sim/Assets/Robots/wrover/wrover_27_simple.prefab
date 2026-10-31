@@ -896,24 +896,27 @@ MonoBehaviour:
   baseLink: {fileID: 0}
   modules: []
   wheelRadius: 0.11
-  maxLinearSpeed: 3
-  maxAngularSpeed: 1.5
-  maxLinearAccel: 2
-  maxAngularAccel: 3
-  maxWheelSurfaceSpeed: 3
-  maxSteerRate: 3
+  maxLinearSpeed: 2.566
+  maxAngularSpeed: 3.5
+  maxLinearAccel: 3
+  maxAngularAccel: 6
+  maxWheelSurfaceSpeed: 2.615
+  maxSteerRate: 18.01
   reverseWheelInsteadOfTurningPast90: 1
   slowWheelsWhileSteering: 1
-  steerStiffness: 10
-  steerDamping: 0.1
-  steerForceLimit: 20
+  steerStiffness: 100
+  steerDamping: 5
+  steerForceLimit: 55
+  motorStallTorque: 2.67
+  motorFreeSpeedRPM: 5676
+  gearRatio: 25
+  gearEfficiency: 0.88
   wheelDamping: 1
-  wheelForceLimit: 15
+  rollingResistanceCoeff: 0.1
   source: 0
   externalCommandTimeout: 0.5
-  keyboardSpeedFraction: 0.5
+  keyboardSpeedFraction: 1
   keyboardFieldCentric: 0
-  showHud: 1
   drawGizmos: 1
   activeSource: '-'
   requestedCommand: {x: 0, y: 0, z: 0}
