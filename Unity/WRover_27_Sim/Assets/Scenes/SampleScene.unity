@@ -655,11 +655,6 @@ MonoBehaviour:
   robotRoot: {fileID: 0}
   frameId: 
   publishRateHz: 30
---- !u!4 &363242553 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4376651877928746070, guid: 22e9b113a43e6f64590eff40b9efcfde, type: 3}
-  m_PrefabInstance: {fileID: 1767668644736987666}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &530201795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,8 +1054,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 363242553}
+  m_LookAt: {fileID: 1767668644736987667}
+  m_Follow: {fileID: 1767668644736987667}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -1524,6 +1519,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22e9b113a43e6f64590eff40b9efcfde, type: 3}
+--- !u!4 &1767668644736987667 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6229100500534196771, guid: 22e9b113a43e6f64590eff40b9efcfde, type: 3}
+  m_PrefabInstance: {fileID: 1767668644736987666}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
