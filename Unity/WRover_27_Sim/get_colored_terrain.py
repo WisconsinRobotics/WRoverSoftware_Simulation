@@ -306,6 +306,119 @@ def generate_normal_map(dem_tif : Path, rgb_tif : Path, unity_env_dir : Path, si
   Image.fromarray(normal_uint8, mode="RGB").save(str(out_normal_png))
   print(f"Exported noise-filtered 4K normal map: {out_normal_png}")
 
+def generate_biome_splatmap(
+    dem_tif : Path, rgb_tif : Path, unity_env_dir : Path, size : int = 4096
+):
+  """
+    This will classify the MDRS terrain into 4 biomes, dependent on the DEM slope, topograpgic curvature, NAIP color gradings. 
+    Outputs an alpha splatmap in the RGBA channels. R + G + B + A = 255 at every pixel for Unity alphamaps
+  """
+
+  unity_env_dir.mkdir(parents=True, exist_ok=True)
+  out_splat_png = unity_env_dir / "mdrs_biome_splatmap.png"
+  out_splat_debug = unity_env_dir / "mdrs_biome_preview_rgb.png"
+
+  dem_ds = gdal.Warp(
+    "",
+    str(dem_tif),
+    format="MEM",
+    width=size,
+    height=size,
+    resampleAlg=gdal.GRIORA_Cubic
+  )
+
+  rgb_ds = gdal.Warp(
+    "",
+    str(rgb_tif),
+    format="MEM",
+    width=size,
+    height=size,
+    resampleAlg=gdal.GRIORA_Cubic
+  )
+
+  elev = dem_ds.GetRasterBand(1).ReadAsArray().astype(np.float32)
+  r = rgb_ds.GetRasterBand(1).ReadAsArray().astype(np.float32) / 255.0
+  g = rgb_ds.GetRasterBand(2).ReadAsArray().astype(np.float32) / 255.0
+  b = rgb_ds.GetRasterBand(3).ReadAsArray().astype(np.float32) / 255.0
+
+  px_per_meter = float(size) / 1568.0
+  elev_smooth = gaussian_filter(elev, sigma=2.5*px_per_meter)
+  # Calculate slope
+  ground_sample_distance_x = 1568.0 / float(size) # Meters per px 'x' stretch
+  ground_sample_distance_y = 1558.0 / float(size) # Meters per px 'y' stretch
+  dz_dx = sobel(elev_smooth, axis=1) / (8.0 * ground_sample_distance_x) # The 8.0 because of how the Sobel Kernel weights work.
+  dz_dy = sobel(elev_smooth, axis=0) / (8.0 * ground_sample_distance_y)
+  slope_rad = np.arctan(np.sqrt(dz_dx ** 2 + dz_dy ** 2))
+  slope = np.degrees(slope_rad) # Note this contains slope values for all points
+
+  # Use the topographic position index to calculate the relative elevation of each point relative to each point in the surroundings. If negative then local depression
+  # https://atlas.co/gis-use-cases/topographic-position-index/
+  tpi_sigma_px = 35.0 * px_per_meter # Big desert radius (Cause small local is not good - aggresively flat)
+  smooth_macro = gaussian_filter(elev, sigma=tpi_sigma_px) # Local neighborhood - adjust the sigma values to adjust local neighborhoods
+  tpi = elev - smooth_macro
+
+  # Spectral indices
+  lum = 0.299 * r + 0.587 * g + 0.114 * b  # Rec 601
+  eps = 1e-5
+  redness = np.clip((r-g) / (r + g + eps), 0.0, 1.0)
+  red_norm = (redness - np.percentile(redness, 5)) / (np.percentile(redness, 95) - np.percentile(redness, 5) + eps)
+  red_norm = np.clip(red_norm, 0.0, 1.0)
+
+  yellowness = np.clip(((r+g) * 0.5 - b) / ((r + g) * 0.5 + b + eps), 0.0, 1.0) # Compute yellow relative to blue
+  yellowness_norm = (yellowness - np.percentile(yellowness, 5)) / (np.percentile(yellowness, 95) - np.percentile(yellowness, 5) + eps)
+  yellowness_norm = np.clip(yellowness_norm, 0.0, 1.0)
+  # Compute biome weights
+  # alpha
+  weight_rock = np.clip((slope - 16.0) / 14.0, 0.0, 1.0) ** 1.5 # Discard below 16 deg of elev, keep 16 to 30 deg
+
+  # If slope < 9 then 1.0 - (slope/9.0) is strictly positive - keep that, if 9.0 or greater discard as falls negative
+  # blue
+  flat_mask = np.clip(1.0 - (slope / 9.0), 0.0, 1.0)
+  gully_mask = np.clip(-tpi / 0.65, 0.0, 1.0)
+  weight_sand = (
+    flat_mask 
+    * np.clip(gully_mask * 0.75 + yellowness_norm + lum * 0.45, 0.0, 1.0) 
+    * (1.0 - weight_rock)
+    )
+
+  # Ferric red mudstone
+  # green
+  weight_red_mud = (
+    (red_norm**1.3) * (1.0 - weight_rock) * (1.0 - 0.6 * weight_sand)
+    ) # Sand is often mixed in here
+
+  # Pale Bentonite Clay
+  # red
+  weight_bentonite = np.clip((1.0-red_norm) * (lum**0.8), 0.02, 1.0) * (1.0 - weight_rock)
+
+  blur_px = max(1.0, 0.8*px_per_meter)
+  weight_bentonite = gaussian_filter(weight_bentonite, sigma=blur_px)
+  weight_red_mud = gaussian_filter(weight_red_mud, sigma=blur_px)
+  weight_sand = gaussian_filter(weight_sand, sigma=blur_px)
+  weight_rock = gaussian_filter(weight_rock, sigma=blur_px * 0.8) # less cuz this is steep surfaces, can't mask too much it would interfere with weighting
+
+  total = weight_bentonite + weight_red_mud + weight_sand + weight_rock + eps
+  rgba = np.stack([weight_bentonite / total, weight_red_mud / total, weight_sand / total, weight_rock / total], axis=-1)
+
+  print(
+      f"Biome Coverage -> Clay (R): {rgba[...,0].mean()*100:.1f}% | "
+      f"Mudstone (G): {rgba[...,1].mean()*100:.1f}% | "
+      f"Sand (B): {rgba[...,2].mean()*100:.1f}% | "
+      f"Rock (A): {rgba[...,3].mean()*100:.1f}%"
+  )
+  rgba = np.flipud(rgba)
+
+  splat_uint8 = np.clip(rgba * 255.0, 0, 255).astype(np.uint8)
+  Image.fromarray(splat_uint8, mode="RGBA").save(str(out_splat_png))
+  print(f"Exported 4 biome RGBA Splatmap: {out_splat_png}")
+
+  # Save an opaque RGB-only preview (shows Rock/Alpha as White) so you can inspect it in Windows Photos
+  preview_rgb = np.clip(
+      rgba[..., :3] + rgba[..., 3:4], 0.0, 1.0
+  )
+  Image.fromarray((preview_rgb * 255.0).astype(np.uint8), mode="RGB").save(str(out_splat_debug))
+
+
 
 def parse_arguments():
   parser = argparse.ArgumentParser(
@@ -412,9 +525,15 @@ def parse_arguments():
   )
 
   parser.add_argument(
-    "--normal-map",
+    "--normal-only",
     action="store_true",
     help="Only regenerate the normal map (default behavior)",
+  )
+
+  parser.add_argument(
+    "--gen-splatmap",
+    action="store_true",
+    help="Generate the 4 biome splatmap"
   )
 
   return parser.parse_args()
@@ -463,6 +582,7 @@ if __name__ == '__main__':
     or args.dem_scale
     or args.create_assets
     or args.normal_only
+    or args.gen_splatmap
   )
 
   if not run_any_specific and not run_everything:
@@ -498,3 +618,13 @@ if __name__ == '__main__':
           size=args.size,
           micro_strength=args.micro_strength,
       )
+
+    if run_everything or args.gen_splatmap:
+      generate_biome_splatmap(
+        dem_tif=dem_tif,
+        rgb_tif=rgb_out,
+        unity_env_dir=unity_dir,
+        size=args.size
+      )
+
+    
