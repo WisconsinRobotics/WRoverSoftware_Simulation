@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -26,10 +28,18 @@ using UnityEngine;
 /// (steer_fl, steer_fr, steer_rl, steer_rr) and the steering axes, so it does not depend on
 /// how the CAD base frame is oriented.
 /// </summary>
+
+[System.Serializable]
+public struct BiomePhysicsParams
+{
+    public string biomeName;
+    [Range(0f, 1f)] public float rollingResistance; // C_rr (sinkage/drag)
+    [Range(0f, 2f)] public float staticFriction;    // Breakaway grip
+    [Range(0f, 2f)] public float dynamicFriction;   // Sliding/cornering grip
+}
+
 [DisallowMultipleComponent]
 [DefaultExecutionOrder(-50)]
-
-
 public class SwerveDriveController : MonoBehaviour
 {
     public enum CommandSource { Auto, KeyboardOnly, ExternalOnly }
@@ -97,11 +107,49 @@ public class SwerveDriveController : MonoBehaviour
     public float gearEfficiency = 0.88f;
     [Tooltip("Wheel Damping")]
     public float wheelDamping = 1f;
-    
-    
-    [Header("Soil Interaction")]
-    [Tooltip("Soil rolling resistance coefficient on desert sand (0.08 - 0.12)")]
-    public float rollingResistanceCoeff = 0.1f;
+
+    [Header("Terrain Splatmap and Physics")]
+    public Texture2D biomeSplatmap;
+    public Vector3 terrainOrigin = new Vector3(-784.0f, -70.8401f, -779.0f);
+    public Vector3 terrainSize = new Vector3(1568.0f, 70.8401f, 1558.0f);
+
+    // Channel order matches shader
+    public BiomePhysicsParams clayPhysics = new BiomePhysicsParams {biomeName = "Clay", rollingResistance = 0.08f, staticFriction = 0.85f, dynamicFriction = 0.75f};
+    public BiomePhysicsParams mudPhysics  = new BiomePhysicsParams {biomeName = "Mud",  rollingResistance = 0.11f, staticFriction = 0.90f, dynamicFriction = 0.80f};
+    public BiomePhysicsParams sandPhysics = new BiomePhysicsParams {biomeName = "Sand", rollingResistance = 0.22f, staticFriction = 0.65f, dynamicFriction = 0.55f};
+    public BiomePhysicsParams rockPhysics = new BiomePhysicsParams {biomeName = "Rock", rollingResistance = 0.03f, staticFriction = 1.25f, dynamicFriction = 1.10f};
+
+    private Color[] cachedSplatPixels;
+    private int splatWidth;
+    private int splatHeight;
+    private PhysicMaterial[] wheelPhysicsMaterials;
+
+    void InitTerrainPhysics()
+    {
+        if(biomeSplatmap != null)
+        {
+            splatWidth = biomeSplatmap.width;
+            splatHeight = biomeSplatmap.height;
+            // Cache once; later gives O(1) lookup
+            cachedSplatPixels = biomeSplatmap.GetPixels();
+        }
+
+        wheelPhysicsMaterials = new PhysicMaterial[modules.Length];
+
+        for (int i = 0; i<modules.Length; i++)
+        {
+            Collider wheelCol = modules[i].wheel.GetComponentInChildren<Collider>();
+            if (wheelCol != null)
+            {
+                PhysicMaterial mat = new PhysicMaterial($"WheelMat_{i}");
+                mat.frictionCombine = PhysicMaterialCombine.Multiply;
+                mat.bounceCombine = PhysicMaterialCombine.Minimum;
+                mat.bounciness = 0.0f;
+                wheelCol.material = mat;
+                wheelPhysicsMaterials[i] = mat;
+            }
+        }
+    }
 
     [Header("Command input")]
     public CommandSource source = CommandSource.Auto;
@@ -217,6 +265,7 @@ public class SwerveDriveController : MonoBehaviour
         upLocal = baseLink.transform.InverseTransformDirection(upW);
         fwdLocal = baseLink.transform.InverseTransformDirection(fwdW);
 
+        InitTerrainPhysics(); // Caches splatmap
         UpdateFrame();
         startCenter = center;
         startRotation = Quaternion.LookRotation(fwd, up);
@@ -481,7 +530,6 @@ public class SwerveDriveController : MonoBehaviour
     }
 
     private readonly RaycastHit[] groundHits = new RaycastHit[8];
-
     /// <summary>
     /// Closest hit below origin that is NOT part of this rover. A plain Raycast starting
     /// above the wheel hits the wheel's own collider first, so the "ground" normal was the
@@ -504,17 +552,58 @@ public class SwerveDriveController : MonoBehaviour
         return best < float.MaxValue;
     }
 
+    Vector4 SampleSplatWeights(Vector3 worldPos)
+    {
+        if (cachedSplatPixels == null || cachedSplatPixels.Length == 0)
+        {
+            return new Vector4(1f, 0f, 0f, 0f); // By default we say all rock
+        }
+
+        float u = Mathf.Clamp01((worldPos.x - terrainOrigin.x) / Mathf.Max(terrainSize.x, 1.0f));
+        float v = Mathf.Clamp01((worldPos.z - terrainOrigin.z) / Mathf.Max(terrainSize.z, 1.0f));
+
+        // Compute Indexes
+        int x = Mathf.Clamp(Mathf.FloorToInt(u * (splatWidth - 1)), 0, splatWidth - 1);
+        int y = Mathf.Clamp(Mathf.FloorToInt(v * (splatHeight - 1)), 0, splatHeight - 1);
+
+        Color c = cachedSplatPixels[y * splatWidth + x];
+        Vector4 w = new Vector4(c.r, c.g, c.b, c.a);
+        float sum = w.x + w.y + w.z + w.w;
+        return (sum > 1e-4f) ? (w / sum) : new Vector4(1f, 0f, 0f, 0f);
+    }
     void ApplyTerrainInteraction()
     {
-        foreach(var m in modules)
+        float totalRoverMass = 45.5f;
+        for(int i = 0; i < modules.Length; i++)
         {
+            var m = modules[i];
             Vector3 wheelPos = m.wheel.worldCenterOfMass;
             // Ray starts 20 cm (wheel radius is 11 cm) above wheel center and goes 50 cm down
             if (RaycastGround(wheelPos + Vector3.up * 0.2f, 0.5f, out RaycastHit hit))
             {
-                float localResistance = rollingResistanceCoeff;
+                Vector4 w = SampleSplatWeights(hit.point);
+                // Calculate local resistance based on splatmaps
+                float localResistance = 
+                    w.x * clayPhysics.rollingResistance + 
+                    w.y * mudPhysics.rollingResistance + 
+                    w.z * sandPhysics.rollingResistance + 
+                    w.w * sandPhysics.rollingResistance;
 
-                // TODO: When splatmap implemented sample what splatmap it is to better model soil interactions
+                // Assign Physics Materials for rover
+                if (wheelPhysicsMaterials != null && wheelPhysicsMaterials[i] != null)
+                {
+                    wheelPhysicsMaterials[i].staticFriction =
+                        w.x * clayPhysics.staticFriction +
+                        w.y * mudPhysics.staticFriction +
+                        w.z * sandPhysics.staticFriction +
+                        w.w * rockPhysics.staticFriction;
+
+                    wheelPhysicsMaterials[i].dynamicFriction =
+                        w.x * clayPhysics.dynamicFriction +
+                        w.y * mudPhysics.dynamicFriction +
+                        w.z * sandPhysics.dynamicFriction +
+                        w.w * rockPhysics.dynamicFriction;
+                }
 
                 Vector3 wheelLinearVel = m.wheel.velocity;
                 Vector3 rollVel = Vector3.ProjectOnPlane(wheelLinearVel, hit.normal);
@@ -522,7 +611,6 @@ public class SwerveDriveController : MonoBehaviour
                 // Deadzone check actual speed is speed > 3cm /sec. Prevents parked rover from vibrating back and forth
                 if (rollVel.sqrMagnitude > 0.001f)
                 {
-                    float totalRoverMass = 45.5f;
                     float cosTheta = Mathf.Max(Vector3.Dot(hit.normal, Vector3.up), 0.1f);
                     float normalForce = (totalRoverMass / 4.0f) * Physics.gravity.magnitude * cosTheta; // Divide mass equally across load bearing wheels (TODO check with mechanical)
                     Vector3 resistanceForce = -rollVel.normalized * localResistance * normalForce;

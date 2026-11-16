@@ -1327,13 +1327,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: wrover_camera
       objectReference: {fileID: 0}
+    - target: {fileID: 1153323647177328520, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2367742209696681366, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.65
       objectReference: {fileID: 0}
     - target: {fileID: 2367742209696681366, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -27.39
+      value: -27.643
       objectReference: {fileID: 0}
     - target: {fileID: 2367742209696681366, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1535,7 +1539,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138290786}
-  m_Material: {fileID: 13400000, guid: 87d030791be2050459a294195552963c, type: 2}
+  m_Material: {fileID: 13400000, guid: 8b3ab20a50ca76d4ca0a420672bcdac0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
