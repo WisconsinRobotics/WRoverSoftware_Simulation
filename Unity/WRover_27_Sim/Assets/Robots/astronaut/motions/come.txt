@@ -1,0 +1,3 @@
+# Come: right arm horizontal, left arm follows the animation (use -90 to pin it down)
+# right  left  blend(s)  hold(s)
+  0      anim  0.5

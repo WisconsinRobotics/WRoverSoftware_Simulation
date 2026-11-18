@@ -1,0 +1,3 @@
+# Follow: Y pose, both arms raised 45 deg above horizontal
+# right  left  blend(s)  hold(s)
+  45     45    0.5
