@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 247507752}
   - component: {fileID: 247507755}
   - component: {fileID: 247507756}
+  - component: {fileID: 247507757}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -278,6 +279,23 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &247507757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247507751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55afd30dab888143bcdb5855d3dcfd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  views: []
+  nextKey: 118
+  textureWidth: 1280
+  textureHeight: 800
+  showLabel: 1
 --- !u!1 &270328407
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +312,10 @@ GameObject:
   - component: {fileID: 270328408}
   - component: {fileID: 270328415}
   - component: {fileID: 270328414}
+  - component: {fileID: 270328416}
+  - component: {fileID: 270328417}
+  - component: {fileID: 270328418}
+  - component: {fileID: 270328419}
   m_Layer: 0
   m_Name: ROS
   m_TagString: Untagged
@@ -449,6 +471,122 @@ MonoBehaviour:
   imageTopic: /camera/image_raw/compressed
   cameraInfoTopic: /camera/camera_info
   frameId: camera_optical_frame
+--- !u!114 &270328416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270328407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8878ab8a6eb71644aab3482532cdb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorCamera: {fileID: 1102261280}
+  width: 1280
+  height: 800
+  jpegQuality: 75
+  useCalibratedIntrinsics: 1
+  calibWidth: 1280
+  calibHeight: 800
+  fx: 569.71661377
+  fy: 569.48486328
+  cx: 622.4732666
+  cy: 407.38534546
+  horizontalFovDeg: 0
+  publishRateHz: 15
+  flipVertical: 0
+  imageTopic: /camera_front_left/image_raw/compressed
+  cameraInfoTopic: /camera_front_left/camera_info
+  frameId: camera_front_left_optical_frame
+--- !u!114 &270328417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270328407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8878ab8a6eb71644aab3482532cdb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorCamera: {fileID: 1102261281}
+  width: 1280
+  height: 800
+  jpegQuality: 75
+  useCalibratedIntrinsics: 1
+  calibWidth: 1280
+  calibHeight: 800
+  fx: 569.71661377
+  fy: 569.48486328
+  cx: 622.4732666
+  cy: 407.38534546
+  horizontalFovDeg: 0
+  publishRateHz: 15
+  flipVertical: 0
+  imageTopic: /camera_front_right/image_raw/compressed
+  cameraInfoTopic: /camera_front_right/camera_info
+  frameId: camera_front_right_optical_frame
+--- !u!114 &270328418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270328407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8878ab8a6eb71644aab3482532cdb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorCamera: {fileID: 1102261282}
+  width: 1280
+  height: 800
+  jpegQuality: 75
+  useCalibratedIntrinsics: 1
+  calibWidth: 1280
+  calibHeight: 800
+  fx: 569.71661377
+  fy: 569.48486328
+  cx: 622.4732666
+  cy: 407.38534546
+  horizontalFovDeg: 0
+  publishRateHz: 15
+  flipVertical: 0
+  imageTopic: /camera_rear/image_raw/compressed
+  cameraInfoTopic: /camera_rear/camera_info
+  frameId: camera_rear_optical_frame
+--- !u!114 &270328419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270328407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8878ab8a6eb71644aab3482532cdb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorCamera: {fileID: 1102261283}
+  width: 1280
+  height: 800
+  jpegQuality: 75
+  useCalibratedIntrinsics: 1
+  calibWidth: 1280
+  calibHeight: 800
+  fx: 569.71661377
+  fy: 569.48486328
+  cx: 622.4732666
+  cy: 407.38534546
+  horizontalFovDeg: 0
+  publishRateHz: 15
+  flipVertical: 0
+  imageTopic: /camera_bottom/image_raw/compressed
+  cameraInfoTopic: /camera_bottom/camera_info
+  frameId: camera_bottom_optical_frame
 --- !u!1001 &302906845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1148,6 +1286,26 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2617140750103806440, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
   m_PrefabInstance: {fileID: 1982371719}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1102261280 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5020815495105586599, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
+  m_PrefabInstance: {fileID: 1982371719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1102261281 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5108318950239310268, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
+  m_PrefabInstance: {fileID: 1982371719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1102261282 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1733557943293198607, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
+  m_PrefabInstance: {fileID: 1982371719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1102261283 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7880915379152981344, guid: c739bc3e76f603d4a8cfb452898f0e17, type: 3}
+  m_PrefabInstance: {fileID: 1982371719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1212251301
 Mesh:
   m_ObjectHideFlags: 0
@@ -1636,6 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1
+  backwardSpeed: 0.5
   turnRate: 90
   acceleration: 2
   clipNativeSpeed: 1
