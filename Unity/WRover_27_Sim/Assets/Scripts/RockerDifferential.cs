@@ -7,9 +7,16 @@ using UnityEngine;
 /// It enforces   theta_left = coupling * theta_right   (1:1 ratio) on the two rocker
 /// joints through their ArticulationBody drives. Only the shared ("symmetric") part
 /// of the rocker motion is corrected, which is the part that would pitch the chassis.
-/// The rockers stay free to move against each other over terrain, exactly like the
-/// real bar. Drive torques act between the chassis and each rocker, so the chassis
-/// receives the reaction load just as it would through the bar.
+/// The rockers stay free to move against each other over terrain, like the real bar,
+/// up to the hard stop set by rockerLimitDeg.
+///
+/// v2 changes:
+///  - Hard stops: the URDF rocker joints are "continuous" (no limits), so nothing stopped
+///    the free (differential) motion. They are now limited to +/- rockerLimitDeg.
+///  - No one-step lag: the drive target is predicted to the end of the physics step, so the
+///    stiff drive no longer drags on the free differential motion.
+///  - Wrap-safe residual: the error is wrapped to [-180, 180] deg, so a joint reading that
+///    jumps by 360 deg can no longer produce a huge correction torque.
 ///
 /// Setup: add this component to the imported robot's root (base_link). The rocker
 /// bodies are found by name if left empty. Unity 2022.3, ArticulationBody.
@@ -24,15 +31,19 @@ public class RockerDifferential : MonoBehaviour
     public ArticulationBody rightRocker;
 
     [Tooltip("+1 or -1. In the exported URDF the two rocker joint axes point in opposite " +
-             "directions, so physically opposite rotation means equal joint angles: +1. " +
-             "If lifting one wheel makes the other rocker move the wrong way, use -1.")]
+             "directions (left -X, right +X in base_link), so physically opposite rotation " +
+             "means equal joint angles: +1.")]
     public float coupling = 1f;
 
-    [Tooltip("Drive stiffness (N*m per degree). Higher = stiffer differential. " +
+    [Tooltip("Rocker travel each way from the zero pose (deg): the real rover's hard stop. " +
+             "Measure it on the rover. 0 = no limit (not recommended).")]
+    public float rockerLimitDeg = 25f;
+
+    [Tooltip("Drive stiffness. Higher = stiffer differential. " +
              "Lower it if you see shaking; raise it if the chassis sags under the arm.")]
     public float stiffness = 2000f;
 
-    [Tooltip("Drive damping (N*m*s per degree). Only damps the symmetric (chassis-pitch) motion.")]
+    [Tooltip("Drive damping. Only damps the symmetric (chassis-pitch) motion.")]
     public float damping = 100f;
 
     [Tooltip("Maximum torque the virtual bar can apply (N*m).")]
@@ -51,40 +62,77 @@ public class RockerDifferential : MonoBehaviour
         {
             Debug.LogError("RockerDifferential: could not find rocker_left / rocker_right ArticulationBodies.", this);
             enabled = false;
+            return;
         }
+
+        if (rockerLimitDeg > 0f)
+        {
+            ApplyLimits(leftRocker);
+            ApplyLimits(rightRocker);
+        }
+    }
+
+    void ApplyLimits(ArticulationBody body)
+    {
+        // Revolute joints use the twist DOF and xDrive. SetDrive() below copies xDrive,
+        // so these limits are kept every frame.
+        body.twistLock = ArticulationDofLock.LimitedMotion;
+        ArticulationDrive d = body.xDrive;
+        d.lowerLimit = -rockerLimitDeg;
+        d.upperLimit = rockerLimitDeg;
+        body.xDrive = d;
     }
 
     void FixedUpdate()
     {
-        // Revolute joint positions/velocities are in radians and rad/s.
-        float thL = leftRocker.jointPosition[0];
-        float thR = rightRocker.jointPosition[0];
-        float vL = leftRocker.jointVelocity[0];
-        float vR = rightRocker.jointVelocity[0];
+        float c = coupling >= 0f ? 1f : -1f;
+        float dt = Time.fixedDeltaTime;
 
-        // Residual of the constraint thL = c * thR, split evenly between the rockers.
-        // Since c = +/-1, targets satisfy tL - c * tR = 0 exactly.
-        float c = Mathf.Sign(coupling);
-        float r = thL - c * thR;
+        // Joint positions/velocities come in rad and rad/s; work in degrees (drive units).
+        float thL = leftRocker.jointPosition[0] * Mathf.Rad2Deg;
+        float thR = rightRocker.jointPosition[0] * Mathf.Rad2Deg;
+        float vL = leftRocker.jointVelocity[0] * Mathf.Rad2Deg;
+        float vR = rightRocker.jointVelocity[0] * Mathf.Rad2Deg;
+
+        // Residual of the constraint thL = c * thR, wrapped to [-180, 180].
+        float r = Mathf.DeltaAngle(c * thR, thL);
         float rv = vL - c * vR;
 
-        SetDrive(leftRocker, thL - r / 2f, vL - rv / 2f);
-        SetDrive(rightRocker, thR + c * r / 2f, vR + c * rv / 2f);
+        // Velocity of the free (differential) mode, in left-rocker coordinates.
+        float midVel = vL - rv / 2f;
 
-        leftAngleDeg = thL * Mathf.Rad2Deg;
-        rightAngleDeg = thR * Mathf.Rad2Deg;
-        constraintErrorDeg = r * Mathf.Rad2Deg;
+        // Predict where the free mode will be at the end of this step. Without this the
+        // target lags one step behind and the stiff drive brakes the differential motion.
+        float pred = midVel * dt;
+
+        // Each target is written relative to that joint's own reading, so a wrapped
+        // reading on the other joint can never pull this one by 360 deg.
+        float tL = thL - r / 2f + pred;
+        float tR = thR + c * (r / 2f + pred);
+
+        if (rockerLimitDeg > 0f)
+        {
+            tL = Mathf.Clamp(tL, -rockerLimitDeg, rockerLimitDeg);
+            tR = Mathf.Clamp(tR, -rockerLimitDeg, rockerLimitDeg);
+        }
+
+        SetDrive(leftRocker, tL, midVel);
+        SetDrive(rightRocker, tR, c * midVel);
+
+        leftAngleDeg = thL;
+        rightAngleDeg = thR;
+        constraintErrorDeg = r;
     }
 
-    void SetDrive(ArticulationBody body, float targetRad, float targetVelRad)
+    void SetDrive(ArticulationBody body, float targetDeg, float targetVelDeg)
     {
         // Revolute joints are driven by xDrive; drive targets are in degrees.
         ArticulationDrive d = body.xDrive;
         d.stiffness = stiffness;
         d.damping = damping;
         d.forceLimit = forceLimit;
-        d.target = targetRad * Mathf.Rad2Deg;
-        d.targetVelocity = targetVelRad * Mathf.Rad2Deg;
+        d.target = targetDeg;
+        d.targetVelocity = targetVelDeg;
         body.xDrive = d;
     }
 
